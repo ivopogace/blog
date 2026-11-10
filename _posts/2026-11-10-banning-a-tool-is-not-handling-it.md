@@ -4,6 +4,7 @@ summary: >-
   A new OpenCode feature could make a helper session look finished while it was
   still waiting. The obvious fix was to take the tool away. I tested that before
   shipping it, and shipped something else.
+date: 2026-11-10 12:00:00 +0000
 ---
 
 I maintain [opencode-courier](https://github.com/ivopogace/opencode-courier), a
