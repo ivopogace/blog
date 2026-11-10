@@ -5,6 +5,9 @@ site: one Markdown file per post, built and deployed by GitHub Actions.
 
 ## Add a post
 
+Claude Code sessions: load the `blog-post` skill (`.claude/skills/blog-post/SKILL.md`)
+before writing, editing or publishing a post. It sets the voice, length and publishing rules.
+
 1. Create `_posts/YYYY-MM-DD-some-slug.md`. The date in the file name is the
    post's date; the slug becomes the URL: `/blog/posts/some-slug/`.
 2. Start the file with front matter, then write Markdown:
@@ -13,6 +16,7 @@ site: one Markdown file per post, built and deployed by GitHub Actions.
    ---
    title: The title of the post
    summary: One or two sentences shown on the index page. Optional.
+   date: 2026-11-10 12:00:00 +0000   # optional; orders posts of the same day
    ---
 
    The text of the post.
@@ -43,8 +47,6 @@ repository, but the production build leaves it out of the site, the index and
 the feed. To publish, delete that line (and rename the file if the date should
 change), then push.
 
-`_posts/2026-11-10-banning-a-tool-is-not-handling-it.md` is such a draft.
-
 ## Preview locally
 
 Needs Ruby 3.1 or newer.
@@ -74,4 +76,5 @@ Source** must be set to **GitHub Actions**.
 | `about.md` | The About page |
 | `_layouts/`, `index.html`, `404.html` | Page templates |
 | `assets/css/style.css` | All of the styling (light and dark) |
+| `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |
 | `_config.yml` | Site title, description, URL settings |
