@@ -43,6 +43,12 @@ html {
   text-size-adjust: 100%;
 }
 
+/* On wide screens everything sized in rem scales up together, so the wider
+   column below still holds no more than about 80 characters per line. */
+@media screen and (min-width: 48rem) {
+  html { font-size: 125%; }
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -60,7 +66,7 @@ body {
 }
 
 .wrap {
-  max-width: 36rem; /* about 68 characters of body text */
+  max-width: 38.5rem; /* 720px of text on wide screens, about 77 characters per line */
   margin: 0 auto;
   padding: 0 1.25rem;
 }
