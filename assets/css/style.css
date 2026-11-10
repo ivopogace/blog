@@ -43,6 +43,12 @@ html {
   text-size-adjust: 100%;
 }
 
+/* On wide screens everything sized in rem scales up together, so the wider
+   column below still holds no more than about 80 characters per line. */
+@media screen and (min-width: 48rem) {
+  html { font-size: 125%; }
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -51,10 +57,16 @@ body {
   font-size: 1.125rem;
   line-height: 1.65;
   overflow-wrap: break-word;
+  /* Header, main and footer stack in a column at least as tall as the window,
+     so the footer sits at the bottom of the window on short pages. */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .wrap {
-  max-width: 36rem; /* about 68 characters of body text */
+  max-width: 38.5rem; /* 720px of text on wide screens, about 77 characters per line */
   margin: 0 auto;
   padding: 0 1.25rem;
 }
@@ -88,7 +100,10 @@ a:hover { text-decoration-thickness: 2px; }
 .site-footer { border-top: 1px solid var(--rule); color: var(--muted); margin-top: 4rem; }
 .site-footer a { color: var(--muted); }
 
-main.wrap { padding-top: 2.5rem; }
+main.wrap { flex: 1 0 auto; width: 100%; padding-top: 2.5rem; }
+/* As a flex item, main keeps its last child's bottom margin inside it. Drop
+   that margin so the space above the footer rule stays the footer's 4rem. */
+main.wrap > :last-child, .prose > :last-child, .post-list li:last-child { margin-bottom: 0; }
 
 /* Headings */
 h1, h2, h3, h4 {
@@ -204,5 +219,5 @@ pre code { font-size: inherit; background: none; padding: 0; }
 
 @media print {
   .site-header nav, .site-footer, .back, .skip { display: none; }
-  body { background: #fff; color: #000; }
+  body { display: block; min-height: 0; background: #fff; color: #000; }
 }
