@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<p class="intro">{{ site.description | escape }}</p>
+{% if site.posts.size > 0 %}
+<ul class="post-list">
+  {%- for post in site.posts %}
+  <li>
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+    <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+    {%- if post.published == false %}
+    <p class="draft">Draft, not published</p>
+    {%- endif %}
+    {%- if post.summary %}
+    <p>{{ post.summary | escape }}</p>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>
+{% else %}
+<p>No posts yet.</p>
+{% endif %}
