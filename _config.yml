@@ -1,0 +1,44 @@
+title: Ivo Pogace
+tagline: Engineering notes
+description: >-
+  Notes on the software I build: what I tried, what broke, and what I changed.
+author: Ivo Pogace
+lang: en
+
+# The site is served at https://ivopogace.github.io/blog/
+url: https://ivopogace.github.io
+baseurl: /blog
+
+permalink: /posts/:title/
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+# Fail the build on mistakes instead of publishing a broken page.
+strict_front_matter: true
+liquid:
+  error_mode: strict
+  strict_filters: true
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Every file in _posts uses the post layout, so posts need no `layout:` line.
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
