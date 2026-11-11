@@ -2,22 +2,42 @@
 layout: default
 ---
 <h1>{{ site.tagline | escape }}</h1>
-<p class="intro">{{ site.description | escape }}</p>
+<p class="intro">I’m {{ site.author | escape }}. {{ site.description | escape }} <a href="{{ '/about/' | relative_url }}">About me</a></p>
 {% if site.posts.size > 0 %}
-<ul class="post-list">
-  {%- for post in site.posts %}
-  <li>
-    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
-    {%- if post.published == false %}
-    <p class="draft">Draft, not published</p>
-    {%- endif %}
-    {%- if post.summary %}
-    <p>{{ post.summary | escape }}</p>
-    {%- endif %}
-  </li>
-  {%- endfor %}
-</ul>
+{%- assign latest = site.posts.first %}
+{%- assign latest_minutes = latest.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
+<article class="latest">
+  <p class="label">Latest post</p>
+  <h2><a href="{{ latest.url | relative_url }}">{{ latest.title | escape }}</a></h2>
+  <p class="meta">
+    <time datetime="{{ latest.date | date_to_xmlschema }}">{{ latest.date | date: "%-d %B %Y" }}</time> · {{ latest_minutes }} min read
+    {%- if latest.published == false %} · <span class="draft">Draft, not published</span>{% endif %}
+  </p>
+  {%- if latest.summary %}
+  <p class="summary">{{ latest.summary | escape }}</p>
+  {%- endif %}
+  <p class="more"><a href="{{ latest.url | relative_url }}" aria-label="Read the post: {{ latest.title | escape }}">Read the post →</a></p>
+</article>
+{%- if site.posts.size > 1 %}
+<section class="earlier" aria-labelledby="earlier-heading">
+  <h2 id="earlier-heading" class="label">Earlier posts</h2>
+  <ul class="post-list">
+    {%- for post in site.posts offset: 1 %}
+    {%- assign minutes = post.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
+    <li>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+      <p class="meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time> · {{ minutes }} min read
+        {%- if post.published == false %} · <span class="draft">Draft, not published</span>{% endif %}
+      </p>
+      {%- if post.summary %}
+      <p>{{ post.summary | escape }}</p>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif %}
 {% else %}
 <p>No posts yet.</p>
 {% endif %}
