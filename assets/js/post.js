@@ -13,23 +13,65 @@
     heading.appendChild(link);
   });
 
+  // Wide tables and code scroll sideways. Each table gets a wrapper that
+  // scrolls, and whatever really overflows can be reached and scrolled with
+  // the keyboard and is named for screen readers.
+  var scrollers = [];
+  prose.querySelectorAll("table").forEach(function (table) {
+    var wrap = document.createElement("div");
+    wrap.className = "table-scroll";
+    table.parentNode.insertBefore(wrap, table);
+    wrap.appendChild(table);
+    scrollers.push({ el: wrap, label: "Table, scrolls sideways" });
+  });
+  prose.querySelectorAll("pre").forEach(function (pre) {
+    scrollers.push({ el: pre, label: "Code, scrolls sideways" });
+  });
+  function markScrollers() {
+    scrollers.forEach(function (s) {
+      if (s.el.scrollWidth > s.el.clientWidth + 1) {
+        s.el.setAttribute("tabindex", "0");
+        s.el.setAttribute("role", "region");
+        s.el.setAttribute("aria-label", s.label);
+      } else {
+        s.el.removeAttribute("tabindex");
+        s.el.removeAttribute("role");
+        s.el.removeAttribute("aria-label");
+      }
+    });
+  }
+  markScrollers();
+  window.addEventListener("resize", markScrollers);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(markScrollers);
+
   // A copy button on each code block.
   if (!navigator.clipboard) return;
+  var status = document.createElement("div");
+  status.className = "sr-only";
+  status.setAttribute("role", "status");
+  prose.appendChild(status);
+  function report(button, shown, spoken) {
+    button.textContent = shown;
+    status.textContent = spoken;
+    setTimeout(function () {
+      button.textContent = "Copy";
+      status.textContent = "";
+    }, 2000);
+  }
   prose.querySelectorAll("pre").forEach(function (pre) {
-    var holder = pre.closest(".highlighter-rouge") || pre;
+    var holder = pre.closest(".highlighter-rouge") || pre.parentNode;
     if (holder.querySelector(".copy")) return;
     var button = document.createElement("button");
     button.type = "button";
     button.className = "copy";
     button.textContent = "Copy";
+    button.setAttribute("aria-label", "Copy the code");
     button.addEventListener("click", function () {
       var code = pre.querySelector("code") || pre;
       navigator.clipboard.writeText(code.innerText.replace(/\n$/, "")).then(function () {
-        button.textContent = "Copied";
-        setTimeout(function () { button.textContent = "Copy"; }, 2000);
+        report(button, "Copied", "Code copied");
       }, function () {
-        button.textContent = "Not copied";
-        setTimeout(function () { button.textContent = "Copy"; }, 2000);
+        report(button, "Not copied", "The code could not be copied");
       });
     });
     holder.classList.add("has-copy");
