@@ -16,4 +16,14 @@ layout: default
     {{ content }}
   </div>
 </article>
+{%- if page.next or page.previous %}
+<nav class="post-nav" aria-label="More posts">
+  {%- if page.next %}
+  <a class="newer" href="{{ page.next.url | relative_url }}"><span>Newer</span>{{ page.next.title | escape }}</a>
+  {%- endif %}
+  {%- if page.previous %}
+  <a class="older" href="{{ page.previous.url | relative_url }}"><span>Older</span>{{ page.previous.title | escape }}</a>
+  {%- endif %}
+</nav>
+{%- endif %}
 <p class="back"><a href="{{ '/' | relative_url }}">← All posts</a></p>
