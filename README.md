@@ -43,9 +43,13 @@ Notes:
 ## Preview images
 
 When a link to the blog is shared, LinkedIn, Slack and chat apps show a card
-with the title. Each post has its own card in `assets/og/<slug>.png`; a post
-without one uses `assets/og/default.png`. After adding a post or changing its
-title, make the card and commit it with the post:
+with the title. Each post has its own card in `assets/og/<slug>.png`.
+
+A post pushed without a card gets one made by the build, so this cannot be
+forgotten. That card is part of the published site but not of the repository.
+To look at a card before it goes out, or after changing a post's title (the
+build does not replace a card that already exists), make it yourself and commit
+it with the post:
 
 ```sh
 node tools/og-cards.js          # makes the cards that are missing
@@ -93,4 +97,4 @@ Source** must be set to **GitHub Actions**.
 | `assets/fonts/` | The heading typeface, Bricolage Grotesque, with its licence |
 | `assets/og/`, `tools/og-cards.js` | Preview images for shared links, and the script that makes them |
 | `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |
-| `_config.yml` | Site title, description, URL settings |
+| `_config.yml` | Site title, description, URL settings, profile links for the footer |

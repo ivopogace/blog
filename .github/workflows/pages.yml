@@ -25,6 +25,19 @@ jobs:
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
+      # A post committed without its preview card gets one here. The card is
+      # part of the built site only; it is not committed. If this step fails,
+      # the post is still published and its link preview shows the site card.
+      - name: Find posts without a preview card
+        id: cards
+        run: echo "missing=$(node tools/og-cards.js --list-missing | wc -l)" >> "$GITHUB_OUTPUT"
+      - name: Make the missing preview cards
+        if: steps.cards.outputs.missing != '0'
+        continue-on-error: true
+        run: |
+          npm install --no-save --no-package-lock playwright@1.63.0
+          npx playwright install --with-deps chromium
+          node tools/og-cards.js
       - name: Build
         run: bundle exec jekyll build --strict_front_matter
         env:
@@ -34,6 +47,8 @@ jobs:
           test -f _site/index.html
           test -f _site/404.html
           test -f _site/feed.xml
+          test -f _site/sitemap.xml
+          grep -q '<loc>https://ivopogace.github.io/blog/</loc>' _site/sitemap.xml
           grep -q 'href="/blog/assets/css/style.css"' _site/index.html
           test -f _site/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2
           test -f _site/assets/og/default.png

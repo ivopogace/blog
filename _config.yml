@@ -5,6 +5,11 @@ description: >-
 author: Ivo Pogace
 lang: en
 
+# Profile links, shown in the footer and on the About page. A link with an
+# empty value is left out.
+github_url: https://github.com/ivopogace
+linkedin_url: ""
+
 # The site is served at https://ivopogace.github.io/blog/
 url: https://ivopogace.github.io
 baseurl: /blog
@@ -19,6 +24,7 @@ kramdown:
 
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 feed:
   path: feed.xml
