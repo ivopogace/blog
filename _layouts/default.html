@@ -7,6 +7,21 @@
   <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
   <meta name="description" content="{{ page.summary | default: site.description | strip_html | strip_newlines | escape }}">
   <meta name="author" content="{{ site.author | escape }}">
+  <meta name="theme-color" content="#fcfcfa" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#16181b" media="(prefers-color-scheme: dark)">
+  {%- comment %} Link previews (LinkedIn, Slack, chat apps) read these. {% endcomment %}
+  <meta property="og:site_name" content="{{ site.title | escape }}">
+  <meta property="og:title" content="{{ page.title | default: site.title | escape }}">
+  <meta property="og:description" content="{{ page.summary | default: site.description | strip_html | strip_newlines | escape }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  {%- if page.collection == "posts" %}
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+  <meta property="article:author" content="{{ site.author | escape }}">
+  {%- else %}
+  <meta property="og:type" content="website">
+  {%- endif %}
+  <meta name="twitter:card" content="summary">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
@@ -18,8 +33,8 @@
     <div class="wrap">
       <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
       <nav aria-label="Site">
-        <a href="{{ '/' | relative_url }}">Posts</a>
-        <a href="{{ '/about/' | relative_url }}">About</a>
+        <a href="{{ '/' | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>Posts</a>
+        <a href="{{ '/about/' | relative_url }}"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a>
         <a href="{{ '/feed.xml' | relative_url }}">Feed</a>
       </nav>
     </div>
