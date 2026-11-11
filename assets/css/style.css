@@ -1,10 +1,30 @@
-/* Light and dark follow the system setting. No web fonts, no JavaScript. */
+/* Light and dark follow the system setting. No JavaScript. One web font, for
+   headings only, served from this site (assets/fonts, SIL Open Font License). */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+/* Only downloaded when a heading uses a character outside basic Latin. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("../fonts/bricolage-grotesque-latin-ext-wght-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
 :root {
   --bg: #fcfcfa;
   --fg: #1d1f21;
   --muted: #5c6166;
   --rule: #dfe1e3;
-  --link: #1f4e79;
+  --accent: #b4411a;
+  --link: var(--accent);
   --code-bg: #f1f2f0;
   --draft: #8a4b00;
   --hl-comment: #5f6871;
@@ -14,6 +34,7 @@
   --hl-name: #1f4e79;
   --hl-del: #b31d28;
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --display: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }
@@ -24,7 +45,7 @@
     --fg: #dcdfe3;
     --muted: #9aa1a8;
     --rule: #30353b;
-    --link: #8fc1f0;
+    --accent: #f29b72;
     --code-bg: #1f2327;
     --draft: #e5a653;
     --hl-comment: #8b949e;
@@ -63,7 +84,9 @@ body {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
+  border-top: 4px solid var(--accent);
 }
+::selection { background: color-mix(in srgb, var(--accent) 25%, transparent); }
 
 .wrap {
   max-width: 38.5rem; /* 720px of text on wide screens, about 77 characters per line */
@@ -84,16 +107,30 @@ a:hover { text-decoration-thickness: 2px; }
   font-size: 0.95rem;
 }
 .site-header { border-bottom: 1px solid var(--rule); }
+.site-header .wrap { align-items: center; }
+.site-footer .wrap { align-items: baseline; }
 .site-header .wrap, .site-footer .wrap {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
   justify-content: space-between;
   gap: 0.25rem 1.5rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.site-title { font-weight: 700; color: var(--fg); text-decoration: none; }
+.site-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-decoration: none;
+}
+.mark { width: 1.5rem; height: 1.5rem; flex: none; }
+.mark rect { fill: var(--accent); }
+.mark path { fill: var(--bg); }
 /* The padding makes each link a taller, wider target for a finger; the
    negative margin keeps the header the same height as before. */
 .site-title, .site-header nav a, .site-footer a {
@@ -106,6 +143,7 @@ a:hover { text-decoration-thickness: 2px; }
 .site-header nav a[aria-current="page"] {
   color: var(--fg);
   text-decoration: underline;
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.35em;
 }
@@ -119,12 +157,14 @@ main.wrap > :last-child, .prose > :last-child, .post-list li:last-child { margin
 
 /* Headings */
 h1, h2, h3, h4 {
-  font-family: var(--sans);
-  line-height: 1.25;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
   text-wrap: balance;
 }
-h1 { font-size: 1.9rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
-.prose h2 { font-size: 1.35rem; margin: 2.25rem 0 0.5rem; }
+h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0.025em; }
+.prose h2 { font-size: 1.4rem; margin: 2.25rem 0 0.5rem; }
 .prose h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
 
 .meta, .post-list time {
@@ -151,9 +191,9 @@ h1 { font-size: 1.9rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
   font-size: 0.95rem;
   line-height: 1.35;
 }
-.post-nav a { color: var(--fg); text-decoration: none; font-weight: 600; }
+.post-nav a { color: var(--fg); text-decoration: none; font-family: var(--display); font-size: 1.05rem; font-weight: 700; }
 .post-nav a:hover { color: var(--link); text-decoration: underline; }
-.post-nav span { display: block; color: var(--muted); font-size: 0.85rem; font-weight: 400; margin-bottom: 0.2rem; }
+.post-nav span { display: block; font-family: var(--sans); color: var(--muted); font-size: 0.85rem; font-weight: 400; margin-bottom: 0.2rem; }
 .post-nav .older { grid-column: 2; text-align: right; }
 
 /* Index */
@@ -161,7 +201,7 @@ h1 { font-size: 1.9rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
 .post-list p:not(.draft) { font-size: 1rem; line-height: 1.55; }
 .post-list { list-style: none; margin: 0; padding: 0; }
 .post-list li { margin: 0 0 2.25rem; }
-.post-list h2 { font-size: 1.35rem; margin: 0.1rem 0 0.25rem; }
+.post-list h2 { font-size: 1.45rem; margin: 0.1rem 0 0.25rem; }
 .post-list h2 a { color: var(--fg); text-decoration: none; }
 .post-list h2 a:hover { color: var(--link); text-decoration: underline; }
 .post-list p { margin: 0; }
@@ -172,6 +212,7 @@ h1 { font-size: 1.9rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
 }
 .prose ul, .prose ol { padding-left: 1.4rem; }
 .prose li { margin-bottom: 0.4rem; }
+.prose li::marker { color: var(--accent); font-family: var(--sans); font-weight: 600; }
 .prose li > ul, .prose li > ol { margin: 0.4rem 0 0; }
 .prose img, .prose video { max-width: 100%; height: auto; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
@@ -179,7 +220,7 @@ h1 { font-size: 1.9rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
   margin-left: 0;
   margin-right: 0;
   padding-left: 1rem;
-  border-left: 3px solid var(--rule);
+  border-left: 3px solid var(--accent);
   color: var(--muted);
 }
 .prose blockquote > :last-child { margin-bottom: 0; }
@@ -245,7 +286,7 @@ pre code { font-size: inherit; background: none; padding: 0; }
 
 @media (max-width: 30rem) {
   body { font-size: 1.0625rem; }
-  h1 { font-size: 1.6rem; }
+  h1 { font-size: 1.8rem; }
   main.wrap { padding-top: 1.75rem; }
   /* Let a small table wrap to the screen before it has to scroll sideways. */
   .prose table { font-size: 0.875rem; }
@@ -257,5 +298,5 @@ pre code { font-size: inherit; background: none; padding: 0; }
 
 @media print {
   .site-header nav, .site-footer, .back, .post-nav, .skip { display: none; }
-  body { display: block; min-height: 0; background: #fff; color: #000; }
+  body { display: block; min-height: 0; background: #fff; color: #000; border-top: 0; }
 }

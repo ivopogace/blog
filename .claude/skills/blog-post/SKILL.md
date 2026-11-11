@@ -75,6 +75,9 @@ published: false
   future-dated post is skipped by the build, draft or not.
 - **Drafts:** `published: false`. The production build leaves the post out of
   the site, index and feed; `--unpublished` shows it, marked as a draft.
+- **Preview card:** run `node tools/og-cards.js` and commit the new
+  `assets/og/<slug>.png` with the post. Link previews show it. If the title
+  changes later, run it with `--all`. Look at the card before committing.
 - **Images:** `assets/images/<slug>/`, with alt text. The site lives under
   `/blog/`, so never write a bare `/assets/...` path:
   `![What it shows]({{ '/assets/images/slug/name.png' | relative_url }})`.
@@ -117,5 +120,6 @@ himself. Do not commit it unless asked. A session never posts to LinkedIn.
 - [ ] Title under about 60 characters; summary present and stands alone.
 - [ ] `date` has a time, is in the past, and sorts the post first.
 - [ ] The CI build command passes; both screenshots were looked at.
+- [ ] The preview card exists in `assets/og/` and shows the current title.
 - [ ] `published: false` is set, unless Ivo approved this post himself.
 - [ ] The LinkedIn teaser is within range and ends with the full URL.
