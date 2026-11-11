@@ -5,7 +5,7 @@ summary: Who writes this blog, and where else to find the work.
 permalink: /about/
 ---
 
-I'm Ivo Pogace. I write software, and this is where I write about it when
+I'm Ivo Pogaçe. I write software, and this is where I write about it when
 there is a story worth telling.
 
 {% comment %}

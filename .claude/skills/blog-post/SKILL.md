@@ -7,7 +7,7 @@ description: >-
 
 # Writing a post for this blog
 
-Posts go out under Ivo Pogace's name, in his voice. Work through in order.
+Posts go out under Ivo Pogaçe's name, in his voice. Work through in order.
 
 ## 1. Is there a post
 
