@@ -82,6 +82,8 @@ Open <http://localhost:4000/blog/>. `--unpublished` also shows drafts, marked
 `.github/workflows/pages.yml` runs on every push to `main`: it builds the site
 and deploys it to GitHub Pages. On pull requests it only builds, so a post with
 broken front matter or Liquid fails the check instead of reaching the site.
+The build also fails when a page links to a page, section or image of this site
+that does not exist. Links to other sites are not checked.
 
 One-time setup: in the repository, **Settings → Pages → Build and deployment →
 Source** must be set to **GitHub Actions**.
@@ -95,7 +97,7 @@ Source** must be set to **GitHub Actions**.
 | `_layouts/`, `index.html`, `404.html` | Page templates |
 | `assets/css/style.css` | All of the styling (light and dark) |
 | `assets/js/post.js` | Heading links and copy buttons on post pages; the pages work without it |
-| `assets/fonts/` | The heading typeface, Bricolage Grotesque, with its licence |
+| `assets/fonts/` | The typefaces, Bricolage Grotesque for headings and Charis SIL for body text, with their licences |
 | `assets/og/`, `tools/og-cards.js` | Preview images for shared links, and the script that makes them |
 | `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |
 | `_config.yml` | Site title, description, URL settings, profile links for the footer |

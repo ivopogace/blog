@@ -51,8 +51,18 @@ jobs:
           grep -q '<loc>https://ivopogace.github.io/blog/</loc>' _site/sitemap.xml
           grep -q 'href="/blog/assets/css/style.css"' _site/index.html
           test -f _site/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2
+          test -f _site/assets/fonts/charis-sil-latin-400-normal.woff2
           test -f _site/assets/og/default.png
           grep -q 'content="https://ivopogace.github.io/blog/assets/og/default.png"' _site/index.html
+      # Fails the build when a page links to a page, section, image or file of
+      # this site that does not exist. Links to other sites are not checked, so
+      # an outage elsewhere cannot block a deploy.
+      - name: Check internal links and images
+        run: bundle exec htmlproofer _site --disable-external --swap-urls '^/blog:' --no-enforce-https
+        env:
+          # Without a UTF-8 locale the checker skips every page and still passes.
+          LANG: C.UTF-8
+          LC_ALL: C.UTF-8
       - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
