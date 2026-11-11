@@ -21,8 +21,25 @@
   {%- else %}
   <meta property="og:type" content="website">
   {%- endif %}
-  <meta name="twitter:card" content="summary">
+  {%- comment %} A post's card is assets/og/<slug>.png, made by tools/og-cards.js.
+      A post without one falls back to the site card. {% endcomment %}
+  {%- assign og_image = "/assets/og/default.png" %}
+  {%- assign og_alt = site.title | append: ": " | append: site.tagline %}
+  {%- if page.collection == "posts" %}
+    {%- assign og_candidate = "/assets/og/" | append: page.slug | append: ".png" %}
+    {%- assign og_found = site.static_files | where: "path", og_candidate | first %}
+    {%- if og_found %}
+      {%- assign og_image = og_candidate %}
+      {%- assign og_alt = page.title | append: ", a post by " | append: site.author %}
+    {%- endif %}
+  {%- endif %}
+  <meta property="og:image" content="{{ og_image | absolute_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ og_alt | escape }}">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="preload" href="{{ '/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
   {% feed_meta %}
@@ -31,7 +48,10 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap">
-      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+      <a class="site-title" href="{{ '/' | relative_url }}">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7"/><path d="M9 9h14v3H17.5v8H23v3H9v-3h5.5v-8H9z"/></svg>
+        {{ site.title | escape }}
+      </a>
       <nav aria-label="Site">
         <a href="{{ '/' | relative_url }}"{% if page.url == "/" %} aria-current="page"{% endif %}>Posts</a>
         <a href="{{ '/about/' | relative_url }}"{% if page.url == "/about/" %} aria-current="page"{% endif %}>About</a>

@@ -40,6 +40,20 @@ Notes:
   Links to other pages of the blog work the same way:
   `[About]({{ '/about/' | relative_url }})`.
 
+## Preview images
+
+When a link to the blog is shared, LinkedIn, Slack and chat apps show a card
+with the title. Each post has its own card in `assets/og/<slug>.png`; a post
+without one uses `assets/og/default.png`. After adding a post or changing its
+title, make the card and commit it with the post:
+
+```sh
+node tools/og-cards.js          # makes the cards that are missing
+node tools/og-cards.js --all    # remakes every card, after a title or design change
+```
+
+Needs Node and Playwright with Chromium (`npm install playwright`).
+
 ## Drafts
 
 Add `published: false` to a post's front matter. The file stays in the
@@ -76,5 +90,7 @@ Source** must be set to **GitHub Actions**.
 | `about.md` | The About page |
 | `_layouts/`, `index.html`, `404.html` | Page templates |
 | `assets/css/style.css` | All of the styling (light and dark) |
+| `assets/fonts/` | The heading typeface, Bricolage Grotesque, with its licence |
+| `assets/og/`, `tools/og-cards.js` | Preview images for shared links, and the script that makes them |
 | `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |
 | `_config.yml` | Site title, description, URL settings |
