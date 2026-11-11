@@ -308,7 +308,8 @@ pre code { font-size: inherit; background: none; padding: 0; }
 
 /* Added by assets/js/post.js: a link beside each heading, a button on code */
 .anchor {
-  margin-left: 0.4em;
+  /* The padding makes the small "#" a target a finger can hit. */
+  padding: 0.2em 0.4em;
   font-weight: 400;
   color: var(--muted);
   text-decoration: none;
@@ -316,7 +317,7 @@ pre code { font-size: inherit; background: none; padding: 0; }
 }
 h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 .anchor:hover { color: var(--link); }
-@media (hover: none) { .anchor { opacity: 0.6; } }
+@media (hover: none) { .anchor { opacity: 1; } }
 .prose h2, .prose h3 { scroll-margin-top: 1rem; }
 .has-copy { position: relative; }
 .copy {
@@ -334,7 +335,26 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 }
 .has-copy:hover .copy, .copy:focus-visible { opacity: 1; }
 .copy:hover { color: var(--fg); border-color: var(--muted); }
-@media (hover: none) { .copy { opacity: 1; } }
+/* Where there is no hover the button always shows, so the code starts below it. */
+@media (hover: none) {
+  .copy { opacity: 1; }
+  .has-copy pre { padding-top: 2.75rem; }
+}
+/* Read out by screen readers, not shown: "Code copied". */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* post.js wraps each table so the wrapper scrolls and the table keeps its
+   table structure for screen readers. */
+.table-scroll, .code-block { margin: 0 0 1.25rem; }
+.table-scroll { overflow-x: auto; }
+.code-block > pre { margin: 0; }
+.prose .table-scroll > table { display: table; overflow: visible; max-width: none; margin: 0; }
 
 /* Tables scroll sideways on their own instead of widening the page */
 .prose table {
