@@ -16,7 +16,13 @@ const out = path.join(root, "assets", "og");
 const all = process.argv.includes("--all");
 
 const config = fs.readFileSync(path.join(root, "_config.yml"), "utf8");
-const setting = (key) => (config.match(new RegExp(`^${key}:\\s*(.+)$`, "m")) || [])[1]?.trim() || "";
+// A value may be written with or without quotes, and may be followed by a comment.
+const unquote = (value) => {
+  const v = value.trim();
+  const quoted = v.match(/^(["'])(.*?)\1/);
+  return quoted ? quoted[2] : v.replace(/\s+#.*$/, "");
+};
+const setting = (key) => unquote((config.match(new RegExp(`^${key}:\\s*(.+)$`, "m")) || [, ""])[1]);
 const site = {
   title: setting("title"),
   tagline: setting("tagline"),
@@ -30,8 +36,7 @@ function readPost(file) {
   const name = path.basename(file, ".md");
   const [, y, m, d, slug] = name.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
   const front = fs.readFileSync(file, "utf8").split(/^---\s*$/m)[1] || "";
-  const raw = (front.match(/^title:\s*(.+)$/m) || [, slug])[1].trim();
-  const title = raw.replace(/^(["'])(.*)\1$/, "$2");
+  const title = unquote((front.match(/^title:\s*(.+)$/m) || [, slug])[1]);
   return { slug, title, foot: `${Number(d)} ${months[Number(m) - 1]} ${y}` };
 }
 
