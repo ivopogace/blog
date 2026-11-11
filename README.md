@@ -94,6 +94,7 @@ Source** must be set to **GitHub Actions**.
 | `about.md` | The About page |
 | `_layouts/`, `index.html`, `404.html` | Page templates |
 | `assets/css/style.css` | All of the styling (light and dark) |
+| `assets/js/post.js` | Heading links and copy buttons on post pages; the pages work without it |
 | `assets/fonts/` | The heading typeface, Bricolage Grotesque, with its licence |
 | `assets/og/`, `tools/og-cards.js` | Preview images for shared links, and the script that makes them |
 | `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |

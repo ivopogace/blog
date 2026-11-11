@@ -1,11 +1,12 @@
 ---
 layout: default
 ---
+{%- assign minutes = content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
 <article class="post">
   <header class="post-header">
     <h1>{{ page.title | escape }}</h1>
     <p class="meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time> · {{ minutes }} min read
       {%- if page.published == false %} · <span class="draft">Draft, not published</span>{% endif %}
     </p>
     {%- if page.summary %}
@@ -27,3 +28,4 @@ layout: default
 </nav>
 {%- endif %}
 <p class="back"><a href="{{ '/' | relative_url }}">← All posts</a></p>
+<script src="{{ '/assets/js/post.js' | relative_url }}" defer></script>
