@@ -5,15 +5,17 @@
 //
 //   node tools/og-cards.js          make the cards that are missing
 //   node tools/og-cards.js --all    remake every card
+//   node tools/og-cards.js --list-missing   only name the posts without a card
 //
-// Needs Node and Playwright with Chromium (npm install playwright).
+// Making cards needs Node and Playwright with Chromium (npm install
+// playwright). The site build runs this for posts that have no card yet.
 const fs = require("fs");
 const path = require("path");
-const { chromium } = require("playwright");
 
 const root = path.join(__dirname, "..");
 const out = path.join(root, "assets", "og");
 const all = process.argv.includes("--all");
+const listMissing = process.argv.includes("--list-missing");
 
 const config = fs.readFileSync(path.join(root, "_config.yml"), "utf8");
 // A value may be written with or without quotes, and may be followed by a comment.
@@ -66,7 +68,9 @@ h1 { margin-top: auto; font-size: ${size}px; font-weight: 700; line-height: 1.06
     .map((f) => readPost(path.join(root, "_posts", f)));
   const cards = [{ slug: "default", title: site.tagline, foot: `Notes by ${site.title}` }, ...posts]
     .filter((c) => all || !fs.existsSync(path.join(out, `${c.slug}.png`)));
+  if (listMissing) return cards.forEach((c) => console.log(c.slug));
   if (cards.length === 0) return console.log("Every post already has a card. Use --all to remake them.");
+  const { chromium } = require("playwright");
   fs.mkdirSync(out, { recursive: true });
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });

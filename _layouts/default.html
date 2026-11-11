@@ -38,6 +38,35 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="{{ og_alt | escape }}">
   <meta name="twitter:card" content="summary_large_image">
+  {%- comment %} Structured data: tells search engines who wrote a post and when. {% endcomment %}
+  {%- assign about_url = "/about/" | absolute_url %}
+  {%- if page.collection == "posts" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": {{ page.title | jsonify }},
+    "description": {{ page.summary | default: site.description | strip_html | strip_newlines | jsonify }},
+    "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+    "image": {{ og_image | absolute_url | jsonify }},
+    "url": {{ page.url | absolute_url | jsonify }},
+    "mainEntityOfPage": {{ page.url | absolute_url | jsonify }},
+    "author": { "@type": "Person", "name": {{ site.author | jsonify }}, "url": {{ about_url | jsonify }} },
+    "publisher": { "@type": "Person", "name": {{ site.author | jsonify }}, "url": {{ about_url | jsonify }} }
+  }
+  </script>
+  {%- elsif page.url == "/" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": {{ site.title | append: ": " | append: site.tagline | jsonify }},
+    "description": {{ site.description | strip_newlines | jsonify }},
+    "url": {{ "/" | absolute_url | jsonify }},
+    "author": { "@type": "Person", "name": {{ site.author | jsonify }}, "url": {{ about_url | jsonify }} }
+  }
+  </script>
+  {%- endif %}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   <link rel="preload" href="{{ '/assets/fonts/bricolage-grotesque-latin-wght-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
@@ -65,7 +94,15 @@
   <footer class="site-footer">
     <div class="wrap">
       <span>© {{ site.time | date: "%Y" }} {{ site.author | escape }}</span>
-      <a href="{{ '/feed.xml' | relative_url }}">Atom feed</a>
+      <nav aria-label="Elsewhere">
+        {%- if site.github_url and site.github_url != "" %}
+        <a href="{{ site.github_url }}" rel="me">GitHub</a>
+        {%- endif %}
+        {%- if site.linkedin_url and site.linkedin_url != "" %}
+        <a href="{{ site.linkedin_url }}" rel="me">LinkedIn</a>
+        {%- endif %}
+        <a href="{{ '/feed.xml' | relative_url }}">Atom feed</a>
+      </nav>
     </div>
   </footer>
 </body>

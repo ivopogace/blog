@@ -76,8 +76,9 @@ published: false
 - **Drafts:** `published: false`. The production build leaves the post out of
   the site, index and feed; `--unpublished` shows it, marked as a draft.
 - **Preview card:** run `node tools/og-cards.js` and commit the new
-  `assets/og/<slug>.png` with the post. Link previews show it. If the title
-  changes later, run it with `--all`. Look at the card before committing.
+  `assets/og/<slug>.png` with the post. Link previews show it. Look at the card
+  before committing. The build makes a card for a post that has none, but it
+  never replaces one: if a title changes, run the script with `--all`.
 - **Images:** `assets/images/<slug>/`, with alt text. The site lives under
   `/blog/`, so never write a bare `/assets/...` path:
   `![What it shows]({{ '/assets/images/slug/name.png' | relative_url }})`.
