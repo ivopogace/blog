@@ -49,7 +49,8 @@
   var status = document.createElement("div");
   status.className = "sr-only";
   status.setAttribute("role", "status");
-  prose.appendChild(status);
+  // Beside the text, not inside it, so it is never the text's last element.
+  prose.parentNode.appendChild(status);
   function report(button, shown, spoken) {
     button.textContent = shown;
     status.textContent = spoken;
@@ -59,13 +60,20 @@
     }, 2000);
   }
   prose.querySelectorAll("pre").forEach(function (pre) {
-    var holder = pre.closest(".highlighter-rouge") || pre.parentNode;
+    // The button sits on a box around the code, so it stays put when the code
+    // scrolls. Markdown code already has that box; a bare <pre> gets one.
+    var holder = pre.closest(".highlighter-rouge");
+    if (!holder) {
+      holder = document.createElement("div");
+      holder.className = "code-block";
+      pre.parentNode.insertBefore(holder, pre);
+      holder.appendChild(pre);
+    }
     if (holder.querySelector(".copy")) return;
     var button = document.createElement("button");
     button.type = "button";
     button.className = "copy";
     button.textContent = "Copy";
-    button.setAttribute("aria-label", "Copy the code");
     button.addEventListener("click", function () {
       var code = pre.querySelector("code") || pre;
       navigator.clipboard.writeText(code.innerText.replace(/\n$/, "")).then(function () {

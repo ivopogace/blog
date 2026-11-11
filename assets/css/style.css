@@ -351,7 +351,9 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 }
 /* post.js wraps each table so the wrapper scrolls and the table keeps its
    table structure for screen readers. */
-.prose .table-scroll { overflow-x: auto; margin: 0 0 1.25rem; }
+.table-scroll, .code-block { margin: 0 0 1.25rem; }
+.table-scroll { overflow-x: auto; }
+.code-block > pre { margin: 0; }
 .prose .table-scroll > table { display: table; overflow: visible; max-width: none; margin: 0; }
 
 /* Tables scroll sideways on their own instead of widening the page */
