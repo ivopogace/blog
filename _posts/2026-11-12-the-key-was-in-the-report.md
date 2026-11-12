@@ -1,5 +1,5 @@
 ---
-title: To pass a finding on, change delivery, not the prompt
+title: The key was in the report, and the report was held
 summary: >-
   Three AI agents worked side by side, and one found a key the other two
   needed. Often it reached them too late. Rewording the instructions three
@@ -8,14 +8,10 @@ date: 2026-11-12 12:00:00 +0000
 published: false
 ---
 
-I maintain [opencode-courier](https://github.com/ivopogace/opencode-courier), a
-plugin that lets AI coding sessions in OpenCode start, message and wake each
-other. A lead session starts helpers, and each helper's report wakes it.
-
 ## The test
 
-I tested this with a scenario called `discovery`. The lead splits a job into
-three parts and starts all three at once. Part "init" runs a setup command that
+A lead AI agent splits a job into three parts and starts a helper agent for
+each, all at once. Part "init" runs a setup command that
 prints a key. Parts "a" and "b" each need that key to fetch a price. Nothing in
 the task says "tell the others".
 
@@ -29,7 +25,7 @@ report. Over 21 early runs, "init" sent the key in a
 separate message, mid-task, in only 4. In the rest it was in the report,
 whatever its instructions said.
 
-Second, the lead often collected reports in a batch. The plugin offers a *join
+Second, the lead often collected reports in a batch, as a *join
 group*: its reports are held until every part has reported, then delivered in
 one message, which saves the lead a turn per report. It also held back the one
 report the others were waiting for.
