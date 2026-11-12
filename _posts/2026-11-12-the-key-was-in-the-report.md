@@ -69,15 +69,18 @@ on what agents already do rather than asking them to change.
 
 ## Limits
 
-All of this is one model, DeepSeek v4.1 Flash, at five runs a side, so each
-difference is a hint, not a result. The `finding` field is merged but still a
-design under test: no run with a real model has yet shown that models fill it
-in.
+These are small samples: one model, and five runs on each side of every change.
+Treat each difference as a hint, not a proof. The `finding` field is merged, but
+it has not yet been tried with a real model, so I do not know whether agents
+will fill it in.
 
 ## What I took from it
 
-A result that reaches the right agent only when a model remembers a special rule
-mostly will not arrive; the default path has to carry it. And pass rates hid the
-problem. In the batch that tested the "blocked" change, all ten runs ended with the right numbers, yet in
-the nine runs with a group the parts reported "blocked" before the key could
-reach them. Counting when the finding arrived showed it.
+If a finding reaches the right agent only when a model remembers a special rule,
+it mostly will not arrive. The default path has to carry it.
+
+Pass rates can hide this. In the batch that tested the "blocked" change, all ten
+runs ended with the right numbers. Yet in the nine runs with a group, the helpers
+had reported "blocked" before the key could reach them, and the answer came by a
+detour. Count whether the finding arrived in time, not only whether the run
+passed.
