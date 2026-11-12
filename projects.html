@@ -11,11 +11,10 @@ permalink: /projects/
 <article class="project" aria-labelledby="project-{{ forloop.index }}">
   <div class="window" aria-hidden="true">
     <div class="window-bar"><span></span><span></span><span></span><code>{{ project.address | escape }}</code></div>
-    <pre class="window-body"><span class="on">●</span> root           <span class="dim">waiting</span>
-├─ lead a        <span class="dim">running</span>
-│  ├─ worker 1   <span class="ok">done</span>
-│  └─ worker 2   <span class="dim">running</span>
-└─ lead b        <span class="ok">done</span></pre>
+    {%- if project.preview %}
+    {%- assign preview = "projects/" | append: project.preview %}
+    {% include {{ preview }} %}
+    {%- endif %}
   </div>
   <h2 id="project-{{ forloop.index }}">{{ project.name | escape }}</h2>
   <p>{{ project.summary | escape }}</p>
@@ -26,7 +25,7 @@ permalink: /projects/
   </ul>
   <p class="project-links">
     {%- for link in project.links %}
-    <a href="{{ link.url }}">{{ link.label | escape }} <span aria-hidden="true">↗</span></a>
+    <a href="{{ link.url | escape }}">{{ link.label | escape }} <span aria-hidden="true">↗</span></a>
     {%- endfor %}
   </p>
   {%- assign written = site.posts | where_exp: "post", "project.posts contains post.slug" %}
@@ -36,7 +35,8 @@ permalink: /projects/
     {%- for post in written %}
     <li>
       <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-      <span class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time></span>
+      <span class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+      {%- if post.published == false %} · <span class="draft">Draft, not published</span>{% endif %}</span>
     </li>
     {%- endfor %}
   </ul>

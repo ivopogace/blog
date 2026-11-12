@@ -261,8 +261,8 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .post-list { list-style: none; margin: 0; padding: 0; }
 .post-list li { margin: 0 0 2.25rem; }
 .post-list h3 { font-size: 1.3rem; margin: 0 0 0.2rem; }
-.post-list h3 a { color: var(--fg); text-decoration: none; }
-.post-list h3 a:hover { color: var(--link); text-decoration: underline; }
+.post-list h3 a, .project-posts a { color: var(--fg); text-decoration: none; }
+.post-list h3 a:hover, .project-posts a:hover { color: var(--link); text-decoration: underline; }
 .post-list p { margin: 0; }
 .post-list .meta { margin-bottom: 0.35rem; }
 
@@ -291,7 +291,7 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 }
 .window-bar span { flex: none; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--rule); }
 .window-bar span:first-child { background: var(--accent); }
-.window-bar code { background: none; padding: 0; margin-left: 0.5rem; color: var(--muted); font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.window-bar code { background: none; padding: 0; margin-left: 0.5rem; color: var(--muted); font-size: 0.75rem; min-width: 0; overflow-wrap: anywhere; }
 .window-body { margin: 0; border: 0; border-radius: 0; background: none; font-size: 0.8rem; line-height: 1.6; color: var(--fg); }
 .window-body .on { color: var(--accent); }
 .window-body .ok { color: var(--hl-string); }
@@ -310,8 +310,7 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .project .label { color: var(--muted); margin: 1.5rem 0 0.5rem; }
 .project-posts { list-style: none; margin: 0; padding: 0; }
 .project-posts li { margin: 0 0 0.6rem; line-height: 1.4; }
-.project-posts a { color: var(--fg); font-family: var(--display); font-weight: 700; text-decoration: none; }
-.project-posts a:hover { color: var(--link); text-decoration: underline; }
+.project-posts a { font-family: var(--display); font-weight: 700; }
 .project-posts .meta { display: block; }
 
 /* Long-form text */
@@ -447,6 +446,9 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
   h1 { font-size: 1.8rem; }
   .latest h2 { font-size: 1.6rem; }
   main.wrap { padding-top: 1.75rem; }
+  /* Keeps the name and the four menu links on one row on a phone. */
+  .site-header .wrap { column-gap: 0.75rem; }
+  .site-header nav { gap: 1rem; }
   /* Let a small table wrap to the screen before it has to scroll sideways. */
   .prose table { font-size: 0.875rem; }
   .prose th { white-space: normal; }
