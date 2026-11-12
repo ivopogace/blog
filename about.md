@@ -5,21 +5,18 @@ summary: Who writes this blog, and where else to find the work.
 permalink: /about/
 ---
 
-I'm Ivo Pogaçe. I write software, and this is where I write about it when
-there is a story worth telling.
-
-{% comment %}
-Draft. Add here, in a sentence or two: what you do for work and where you are
-based. Leave out anything you would rather not publish. This note is not
-published.
-{% endcomment %}
+I'm Ivo Pogaçe, a full-stack developer in Wiesbaden, focused on Java, Spring
+Boot and Angular. This is where I write about the software I build when there
+is a story worth telling.
 
 ## What I work on
 
-One of the projects I maintain is
+In my free time I build open-source tools for AI coding agents and contribute
+to other open-source projects. My main one is
 [opencode-courier](https://github.com/ivopogace/opencode-courier), an OpenCode
-plugin that lets AI coding sessions spawn helper sessions and be woken by their
-reports.
+plugin that lets AI coding sessions hand work to each other. The
+[projects page]({{ '/projects/' | relative_url }}) lists it with the posts
+written about it.
 
 ## What to expect here
 
