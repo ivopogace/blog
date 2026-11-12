@@ -266,6 +266,54 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .post-list p { margin: 0; }
 .post-list .meta { margin-bottom: 0.35rem; }
 
+/* Projects: each project is a card whose top is drawn as a small window */
+.project {
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  margin: 0 0 2.5rem;
+}
+.project h2 { font-size: 1.6rem; letter-spacing: -0.02em; margin: 1.25rem 0 0.4rem; }
+.project > p { margin: 0; }
+.window {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--code-bg);
+}
+.window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+}
+.window-bar span { flex: none; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--rule); }
+.window-bar span:first-child { background: var(--accent); }
+.window-bar code { background: none; padding: 0; margin-left: 0.5rem; color: var(--muted); font-size: 0.75rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.window-body { margin: 0; border: 0; border-radius: 0; background: none; font-size: 0.8rem; line-height: 1.6; color: var(--fg); }
+.window-body .on { color: var(--accent); }
+.window-body .ok { color: var(--hl-string); }
+.window-body .dim { color: var(--muted); }
+.tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0; padding: 0; }
+.tags li {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15rem 0.65rem;
+}
+.project-links { display: flex; flex-wrap: wrap; gap: 0 1.5rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; margin: 0.75rem 0 0; }
+.project-links a { display: inline-block; padding: 0.5rem 0; }
+.project .label { color: var(--muted); margin: 1.5rem 0 0.5rem; }
+.project-posts { list-style: none; margin: 0; padding: 0; }
+.project-posts li { margin: 0 0 0.6rem; line-height: 1.4; }
+.project-posts a { color: var(--fg); font-family: var(--display); font-weight: 700; text-decoration: none; }
+.project-posts a:hover { color: var(--link); text-decoration: underline; }
+.project-posts .meta { display: block; }
+
 /* Long-form text */
 .prose p, .prose ul, .prose ol, .prose blockquote, .prose pre, .prose table, .prose figure {
   margin: 0 0 1.25rem;
