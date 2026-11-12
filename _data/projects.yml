@@ -1,0 +1,13 @@
+- name: opencode-courier
+  address: github.com/ivopogace/opencode-courier
+  preview: opencode-courier.html
+  summary: >-
+    An OpenCode plugin for multi-session work. A session hands parts of a job
+    to helper sessions, ends its turn, and is woken when they report.
+  tags: [OpenCode V2 plugin, TypeScript, MIT licence]
+  links:
+    - label: Source
+      url: https://github.com/ivopogace/opencode-courier
+    - label: npm
+      url: https://www.npmjs.com/package/opencode-courier
+  posts: [the-key-was-in-the-report, banning-a-tool-is-not-handling-it]

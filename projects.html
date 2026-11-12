@@ -1,0 +1,45 @@
+---
+layout: default
+title: Projects
+summary: The software I build and maintain, with the posts written about it.
+permalink: /projects/
+---
+<h1>Projects</h1>
+<p class="intro">Software I build and maintain. The posts linked under each one tell what happened while building it.</p>
+
+{%- for project in site.data.projects %}
+<article class="project" aria-labelledby="project-{{ forloop.index }}">
+  <div class="window" aria-hidden="true">
+    <div class="window-bar"><span></span><span></span><span></span><code>{{ project.address | escape }}</code></div>
+    {%- if project.preview %}
+    {%- assign preview = "projects/" | append: project.preview %}
+    {% include {{ preview }} %}
+    {%- endif %}
+  </div>
+  <h2 id="project-{{ forloop.index }}">{{ project.name | escape }}</h2>
+  <p>{{ project.summary | escape }}</p>
+  <ul class="tags">
+    {%- for tag in project.tags %}
+    <li>{{ tag | escape }}</li>
+    {%- endfor %}
+  </ul>
+  <p class="project-links">
+    {%- for link in project.links %}
+    <a href="{{ link.url | escape }}">{{ link.label | escape }} <span aria-hidden="true">↗</span></a>
+    {%- endfor %}
+  </p>
+  {%- assign written = site.posts | where_exp: "post", "project.posts contains post.slug" %}
+  {%- if written.size > 0 %}
+  <h3 class="label">Posts about it</h3>
+  <ul class="project-posts">
+    {%- for post in written %}
+    <li>
+      <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      <span class="meta"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time>
+      {%- if post.published == false %} · <span class="draft">Draft, not published</span>{% endif %}</span>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+</article>
+{%- endfor %}
