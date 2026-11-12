@@ -5,7 +5,6 @@ summary: >-
   needed. Often it reached them too late. Rewording the instructions three
   times changed nothing; changing how reports are delivered did.
 date: 2026-11-12 12:00:00 +0000
-published: false
 ---
 
 ## The test
