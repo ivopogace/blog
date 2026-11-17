@@ -43,23 +43,30 @@ function readPost(file) {
 }
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const font = fs.readFileSync(path.join(root, "assets", "fonts", "bricolage-grotesque-latin-wght-normal.woff2")).toString("base64");
+const embed = (file) => fs.readFileSync(path.join(root, "assets", "fonts", file)).toString("base64");
+const font = embed("bricolage-grotesque-latin-wght-normal.woff2");
+const mono = embed("jetbrains-mono-latin-wght-normal.woff2");
 
+// The card is drawn like the dark side of the site: the name with its dot, the
+// title hanging from a line of the tree, and the date and address in mono.
 function card({ title, foot }) {
   const size = title.length > 70 ? 60 : title.length > 42 ? 72 : 88;
   return `<!doctype html><meta charset="utf-8"><style>
 @font-face { font-family: B; font-weight: 200 800; src: url(data:font/woff2;base64,${font}) format("woff2"); }
+@font-face { font-family: M; font-weight: 100 800; src: url(data:font/woff2;base64,${mono}) format("woff2"); }
 * { box-sizing: border-box; margin: 0; }
-body { width: 1200px; height: 630px; background: #fcfcfa; color: #1d1f21; font-family: B, sans-serif;
-  border-top: 16px solid #b4411a; padding: 64px 80px 60px; display: flex; flex-direction: column; }
-.top { display: flex; align-items: center; gap: 18px; font-size: 32px; font-weight: 700; letter-spacing: -0.01em; }
-.top svg { width: 52px; height: 52px; }
-.top span { margin-left: auto; font-weight: 500; color: #5c6166; }
-h1 { margin-top: auto; font-size: ${size}px; font-weight: 700; line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; max-width: 1000px; }
-.foot { margin-top: 36px; font-size: 28px; font-weight: 500; color: #5c6166; display: flex; justify-content: space-between; }
+body { width: 1200px; height: 630px; background: #0e1013; color: #d9dde3; font-family: M, monospace;
+  padding: 64px 80px 60px; display: flex; flex-direction: column; }
+.top { display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 700; text-transform: lowercase; }
+.top::before { content: ""; width: 18px; height: 18px; border-radius: 50%; background: #ff8a5c; }
+.top span { margin-left: auto; font-weight: 400; color: #8a929c; text-transform: none; }
+.branch { flex: 1; margin-left: 8px; border-left: 2px solid #4a525c; display: flex; align-items: flex-end; }
+h1 { position: relative; padding-left: 64px; font-family: B, sans-serif; font-size: ${size}px; font-weight: 700; line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; max-width: 1030px; }
+h1::before { content: ""; position: absolute; left: 0; bottom: 0.5em; width: 40px; border-top: 2px solid #4a525c; }
+.foot { margin: 36px 0 0 72px; font-size: 24px; color: #8a929c; display: flex; justify-content: space-between; }
 </style>
-<div class="top"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#b4411a"/><path d="M9 9h14v3H17.5v8H23v3H9v-3h5.5v-8H9z" fill="#fcfcfa"/></svg>${esc(site.title)}<span>${esc(site.tagline)}</span></div>
-<h1>${esc(title)}</h1>
+<div class="top">${esc(site.title)}<span>${esc(site.tagline)}</span></div>
+<div class="branch"><h1>${esc(title)}</h1></div>
 <div class="foot"><div>${esc(foot)}</div><div>${esc(site.address)}</div></div>`;
 }
 

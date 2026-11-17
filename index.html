@@ -1,43 +1,57 @@
 ---
 layout: default
 ---
-<h1>{{ site.tagline | escape }}</h1>
-<p class="intro">I’m {{ site.author | escape }}. {{ site.description | escape }} <a href="{{ '/about/' | relative_url }}">About me</a></p>
+<header class="home-intro">
+  <h1>{{ site.tagline | escape }}</h1>
+  <p>I’m {{ site.author | escape }}. {{ site.description | escape }} <a href="{{ '/about/' | relative_url }}">About me</a></p>
+</header>
 {% if site.posts.size > 0 %}
-{%- assign latest = site.posts.first %}
-{%- assign latest_minutes = latest.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
-<article class="latest">
-  <p class="label">Latest post</p>
-  <h2><a href="{{ latest.url | relative_url }}">{{ latest.title | escape }}</a></h2>
-  <p class="meta">
-    <time datetime="{{ latest.date | date_to_xmlschema }}">{{ latest.date | date: "%-d %B %Y" }}</time> · {{ latest_minutes }} min read
-    {%- if latest.published == false %} · <span class="draft">Draft, not published</span>{% endif %}
-  </p>
-  {%- if latest.summary %}
-  <p class="summary">{{ latest.summary | escape }}</p>
+{%- comment %} The posts as a tree: a branch for each project in
+    _data/projects.yml that has posts, then a branch for the posts that belong
+    to no project. Inside a branch the newest post comes first. {% endcomment %}
+{%- assign newest = site.posts.first %}
+{%- assign claimed = "" | split: "" %}
+{%- for project in site.data.projects %}
+  {%- assign claimed = claimed | concat: project.posts %}
+{%- endfor %}
+{%- assign loose = 0 %}
+{%- for post in site.posts %}
+  {%- unless claimed contains post.slug %}{% assign loose = loose | plus: 1 %}{% endunless %}
+{%- endfor %}
+<p class="root">posts <span>{{ site.posts.size }} {% if site.posts.size == 1 %}entry{% else %}entries{% endif %}</span></p>
+<ul class="tree">
+  {%- for project in site.data.projects %}
+  {%- assign written = site.posts | where_exp: "post", "project.posts contains post.slug" %}
+  {%- if written.size > 0 %}
+  <li class="branch">
+    <div class="branch-head">
+      <h2><a href="{{ '/projects/' | relative_url }}">{{ project.name | escape }}</a></h2>
+      <span>{{ written.size }} {% if written.size == 1 %}post{% else %}posts{% endif %}</span>
+    </div>
+    <ul class="tree">
+      {%- for post in written %}
+      {% include post-leaf.html post=post newest=newest %}
+      {%- endfor %}
+    </ul>
+  </li>
   {%- endif %}
-  <p class="more"><a href="{{ latest.url | relative_url }}" aria-label="Read the post: {{ latest.title | escape }}">Read the post →</a></p>
-</article>
-{%- if site.posts.size > 1 %}
-<section class="earlier" aria-labelledby="earlier-heading">
-  <h2 id="earlier-heading" class="label">Earlier posts</h2>
-  <ul class="post-list">
-    {%- for post in site.posts offset: 1 %}
-    {%- assign minutes = post.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
-    <li>
-      <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-      <p class="meta">
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %B %Y" }}</time> · {{ minutes }} min read
-        {%- if post.published == false %} · <span class="draft">Draft, not published</span>{% endif %}
-      </p>
-      {%- if post.summary %}
-      <p>{{ post.summary | escape }}</p>
-      {%- endif %}
-    </li>
-    {%- endfor %}
-  </ul>
-</section>
-{%- endif %}
+  {%- endfor %}
+  {%- if loose > 0 %}
+  <li class="branch">
+    <div class="branch-head">
+      <h2>notes</h2>
+      <span>{{ loose }} {% if loose == 1 %}post{% else %}posts{% endif %}</span>
+    </div>
+    <ul class="tree">
+      {%- for post in site.posts %}
+      {%- unless claimed contains post.slug %}
+      {% include post-leaf.html post=post newest=newest %}
+      {%- endunless %}
+      {%- endfor %}
+    </ul>
+  </li>
+  {%- endif %}
+</ul>
 {% else %}
 <p>No posts yet.</p>
 {% endif %}

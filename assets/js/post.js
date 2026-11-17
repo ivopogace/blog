@@ -3,6 +3,50 @@
   var prose = document.querySelector(".prose");
   if (!prose) return;
 
+  // The post's sections as a small tree. The stylesheet shows it in the left
+  // margin on wide screens only, and the section being read is marked.
+  var sections = Array.prototype.slice.call(prose.querySelectorAll("h2[id]"));
+  if (sections.length > 1) {
+    var rail = document.createElement("nav");
+    rail.className = "rail";
+    rail.setAttribute("aria-label", "In this post");
+    var railRoot = document.createElement("p");
+    railRoot.className = "root";
+    railRoot.textContent = "in this post";
+    var railList = document.createElement("ul");
+    railList.className = "tree";
+    var railLinks = sections.map(function (heading) {
+      var item = document.createElement("li");
+      var link = document.createElement("a");
+      link.href = "#" + heading.id;
+      link.textContent = heading.textContent.trim();
+      item.appendChild(link);
+      railList.appendChild(item);
+      return link;
+    });
+    rail.appendChild(railRoot);
+    rail.appendChild(railList);
+    prose.parentNode.appendChild(rail);
+    var marking = false;
+    function markSection() {
+      marking = false;
+      // The section being read is the last one whose heading has passed the
+      // upper third of the window.
+      var current = 0;
+      sections.forEach(function (heading, i) {
+        if (heading.getBoundingClientRect().top < window.innerHeight / 3) current = i;
+      });
+      railLinks.forEach(function (link, i) {
+        if (i === current) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    }
+    markSection();
+    window.addEventListener("scroll", function () {
+      if (!marking) { marking = true; requestAnimationFrame(markSection); }
+    }, { passive: true });
+  }
+
   // A link next to each section heading, so a reader can share that section.
   prose.querySelectorAll("h2[id], h3[id]").forEach(function (heading) {
     var link = document.createElement("a");

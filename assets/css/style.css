@@ -1,7 +1,10 @@
-/* Light and dark follow the system setting. One small script on post pages
-   (assets/js/post.js), which the pages work without. Two typefaces, served
-   from this site (assets/fonts, SIL Open Font License): Bricolage Grotesque
-   for headings and Charis SIL for body text. */
+/* The look follows the session trees the posts are about: a tree of posts on
+   the home page, mono type for names, dates and paths, and a serif for the
+   text itself. Light and dark follow the system setting. One small script on
+   post pages (assets/js/post.js), which the pages work without. Three
+   typefaces, served from this site (assets/fonts, SIL Open Font License):
+   Bricolage Grotesque for titles, Charis SIL for body text and JetBrains Mono
+   for everything set in mono. */
 /* Body text. Charis SIL is drawn from Charter, so the text looks the same on
    every device. A browser fetches only the styles a page uses. */
 @font-face {
@@ -36,7 +39,7 @@
   src: url("../fonts/charis-sil-latin-700-italic.woff2") format("woff2");
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-/* Headings */
+/* Titles */
 @font-face {
   font-family: "Bricolage Grotesque";
   font-style: normal;
@@ -45,7 +48,7 @@
   src: url("../fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
   unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
-/* Only downloaded when a heading uses a character outside basic Latin. */
+/* Only downloaded when a title uses a character outside basic Latin. */
 @font-face {
   font-family: "Bricolage Grotesque";
   font-style: normal;
@@ -54,36 +57,52 @@
   src: url("../fonts/bricolage-grotesque-latin-ext-wght-normal.woff2") format("woff2");
   unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
 }
+/* Mono: the menu, dates, paths, labels and code. */
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("../fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
 
 :root {
-  --bg: #fcfcfa;
-  --fg: #1d1f21;
-  --muted: #5c6166;
-  --rule: #dfe1e3;
+  --bg: #f3f1ea;
+  --fg: #1c1f23;
+  --muted: #5d646c;
+  --soft: #4a5057;   /* a post's summary in the tree */
+  --rule: #d9d6cb;
+  --line: #a8a69b;   /* the lines of a tree */
   --accent: #b4411a;
+  --ok: #2a6f2d;
   --link: var(--accent);
-  --code-bg: #f1f2f0;
+  --code-bg: #e9e6dc;
   --draft: #8a4b00;
-  --hl-comment: #5f6871;
-  --hl-keyword: #a626a4;
-  --hl-string: #2f7d32;
-  --hl-number: #9a5b00;
+  --hl-comment: #59616a;
+  --hl-keyword: #9a1f98;
+  --hl-string: #2a6f2d;
+  --hl-number: #8a5000;
   --hl-name: #1f4e79;
-  --hl-del: #b31d28;
+  --hl-del: #a81b25;
   --serif: "Charis SIL", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   --display: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --mono-system: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --mono: "JetBrains Mono", var(--mono-system);
+  --measure: 36rem; /* 648px of text on wide screens, about 77 characters per line */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #16181b;
-    --fg: #dcdfe3;
-    --muted: #9aa1a8;
-    --rule: #30353b;
-    --accent: #f29b72;
-    --code-bg: #1f2327;
+    --bg: #0e1013;
+    --fg: #d9dde3;
+    --muted: #8a929c;
+    --soft: #aab1ba;
+    --rule: #252a30;
+    --line: #4a525c;
+    --accent: #ff8a5c;
+    --ok: #7fd38f;
+    --code-bg: #15191d;
     --draft: #e5a653;
     --hl-comment: #8b949e;
     --hl-keyword: #d49ae6;
@@ -101,10 +120,9 @@ html {
   text-size-adjust: 100%;
 }
 
-/* On wide screens everything sized in rem scales up together, so the wider
-   column below still holds no more than about 80 characters per line. */
+/* On wide screens everything sized in rem scales up together. */
 @media screen and (min-width: 48rem) {
-  html { font-size: 125%; }
+  html { font-size: 112.5%; }
 }
 
 body {
@@ -121,12 +139,13 @@ body {
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  border-top: 4px solid var(--accent);
 }
 ::selection { background: color-mix(in srgb, var(--accent) 25%, transparent); }
 
+/* The page is wider than the text: the tree on the home page uses all of it,
+   and text is held to --measure so a line stays about 77 characters long. */
 .wrap {
-  max-width: 38.5rem; /* 720px of text on wide screens, about 77 characters per line */
+  max-width: 46rem;
   margin: 0 auto;
   padding: 0 1.25rem;
 }
@@ -139,11 +158,9 @@ a:hover { text-decoration-thickness: 2px; }
 .skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: 0.25rem 0.5rem; }
 
 /* Header and footer */
-.site-header, .site-footer {
-  font-family: var(--sans);
-  font-size: 0.95rem;
-}
-.site-header { border-bottom: 1px solid var(--rule); }
+.site-header, .site-footer { font-family: var(--mono); }
+.site-header { font-size: 0.85rem; border-bottom: 1px solid var(--rule); }
+.site-footer { font-size: 0.8rem; }
 .site-header .wrap { align-items: center; }
 .site-footer .wrap { align-items: baseline; }
 .site-header .wrap, .site-footer .wrap {
@@ -157,17 +174,22 @@ a:hover { text-decoration-thickness: 2px; }
 .site-title {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  font-family: var(--display);
-  font-size: 1.1rem;
+  gap: 0.6rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  text-transform: lowercase;
   color: var(--fg);
   text-decoration: none;
 }
-.mark { width: 1.5rem; height: 1.5rem; flex: none; }
-.mark rect { fill: var(--accent); }
-.mark path { fill: var(--bg); }
+/* The dot that marks the root of every tree on the site. */
+.site-title::before, .root::before {
+  content: "";
+  flex: none;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--accent);
+}
 /* The padding makes each link a taller, wider target for a finger; the
    negative margin keeps the header the same height as before. */
 .site-title, .site-header nav a, .site-footer a {
@@ -175,15 +197,10 @@ a:hover { text-decoration-thickness: 2px; }
   margin: -0.6rem -0.5rem;
 }
 .site-header nav { display: flex; gap: 1.5rem; }
-.site-header nav a { color: var(--muted); text-decoration: none; }
+.site-header nav a { color: var(--muted); text-decoration: none; text-transform: lowercase; }
+.site-header nav a::before { content: "/"; content: "/" / ""; color: var(--accent); margin-right: 0.1em; }
 .site-header nav a:hover { color: var(--fg); text-decoration: underline; }
-.site-header nav a[aria-current="page"] {
-  color: var(--fg);
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.35em;
-}
+.site-header nav a[aria-current="page"] { color: var(--fg); }
 .site-footer { border-top: 1px solid var(--rule); color: var(--muted); margin-top: 4rem; }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
 .site-footer a { color: var(--muted); }
@@ -192,7 +209,7 @@ a:hover { text-decoration-thickness: 2px; }
 main.wrap { flex: 1 0 auto; width: 100%; padding-top: 2.5rem; }
 /* As a flex item, main keeps its last child's bottom margin inside it. Drop
    that margin so the space above the footer rule stays the footer's 4rem. */
-main.wrap > :last-child, .prose > :last-child, .post-list li:last-child { margin-bottom: 0; }
+main.wrap > :last-child, .prose > :last-child { margin-bottom: 0; }
 
 /* Headings */
 h1, h2, h3, h4 {
@@ -202,82 +219,229 @@ h1, h2, h3, h4 {
   line-height: 1.2;
   text-wrap: balance;
 }
-h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0.025em; }
-.prose h2 { font-size: 1.4rem; margin: 2.25rem 0 0.5rem; }
+h1 { font-size: 2.7rem; line-height: 1.08; margin: 0 0 0.6rem; letter-spacing: -0.035em; }
+.prose h2 { font-size: 1.45rem; letter-spacing: -0.02em; margin: 2.75rem 0 0.5rem; }
+/* A small "##" before a section heading, as in the Markdown it is written in.
+   The second content line gives it no spoken name, where a browser can. */
+.prose h2::before {
+  content: "##";
+  content: "##" / "";
+  font-family: var(--mono);
+  font-size: 0.62em;
+  letter-spacing: 0;
+  color: var(--accent);
+  margin-right: 0.7em;
+  vertical-align: 0.18em;
+}
+/* Where the page has a margin, the "##" hangs in it, so the heading starts on
+   the same line as the text below it. */
+@media screen and (min-width: 56rem) {
+  .prose h2 { position: relative; }
+  .prose h2::before {
+    position: absolute;
+    right: 100%;
+    top: 0.42em;
+    margin-right: 0.75rem;
+    line-height: 1;
+    vertical-align: 0;
+  }
+}
 .prose h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
 
 .meta {
-  font-family: var(--sans);
-  font-size: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
   color: var(--muted);
+  margin: 0;
 }
-.meta { margin: 0; }
-.lede { font-size: 1.2rem; color: var(--muted); margin: 1rem 0 0; }
 .post-header { margin-bottom: 2rem; }
-.draft { color: var(--draft); font-family: var(--sans); font-size: 0.9rem; font-weight: 600; }
-.back { font-family: var(--sans); font-size: 0.95rem; margin-top: 2rem; }
+.post-header .meta { margin-top: 0.9rem; }
+/* Where the post sits: "posts / the project it is about" */
+.crumb { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin: 0 0 1.2rem; }
+.crumb a { color: var(--muted); display: inline-block; padding: 0.4rem 0; margin: -0.4rem 0; }
+.crumb a:hover { color: var(--fg); }
+.crumb span { color: var(--accent); margin: 0 0.3em; }
+.lede {
+  font-size: 1.15rem;
+  max-width: var(--measure);
+  margin: 1.6rem 0 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--accent);
+}
+.draft { color: var(--draft); font-family: var(--mono); font-size: 0.8rem; font-weight: 600; }
+.back {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1.5rem;
+  max-width: var(--measure);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
 .back a { display: inline-block; padding: 0.5rem 0; }
+.back span { color: var(--muted); }
+
+/* Under a post: the project it is about, drawn like its card on the Projects page */
+.post-project {
+  display: grid;
+  grid-template-columns: 14.5rem 1fr;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  max-width: var(--measure);
+  margin-top: 3rem;
+  padding: 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.post-project .label { margin-bottom: 0.3rem; }
+.post-project h2 { font-size: 1.3rem; margin: 0 0 0.3rem; }
+.post-project p { font-size: 1rem; line-height: 1.5; margin: 0; }
+.post-project p.label { font-size: 0.75rem; }
+.post-project .project-links { font-size: 0.85rem; margin-top: 0.4rem; }
 
 /* Newer and older post, under a post */
 .post-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem 2rem;
+  max-width: var(--measure);
   margin-top: 3rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--rule);
-  font-family: var(--sans);
-  font-size: 0.95rem;
   line-height: 1.35;
 }
 .post-nav a { color: var(--fg); text-decoration: none; font-family: var(--display); font-size: 1.05rem; font-weight: 700; }
 .post-nav a:hover { color: var(--link); text-decoration: underline; }
-.post-nav span { display: block; font-family: var(--sans); color: var(--muted); font-size: 0.85rem; font-weight: 400; margin-bottom: 0.2rem; }
+.post-nav span { display: block; font-family: var(--mono); color: var(--muted); font-size: 0.78rem; font-weight: 400; margin-bottom: 0.2rem; }
 .post-nav .older { grid-column: 2; text-align: right; }
+/* A post with only one neighbour: the link starts at the left edge. */
+.post-nav a:only-child { grid-column: 1; text-align: left; }
 
-/* Index */
-.intro { color: var(--muted); margin: 0 0 2.5rem; }
-.intro a { white-space: nowrap; }
+/* Home page. It opens with two lines written like comments in a script. */
+.intro { color: var(--muted); max-width: var(--measure); margin: 0 0 2.5rem; }
+.intro a, .home-intro a { white-space: nowrap; }
+.home-intro { margin: 0 0 2rem; font-family: var(--mono); font-size: 0.82rem; line-height: 1.7; color: var(--muted); }
+.home-intro h1 { font: inherit; letter-spacing: 0; margin: 0; text-wrap: wrap; }
+.home-intro p { margin: 0; }
+.home-intro h1::before, .home-intro p::before { content: "# "; content: "# " / ""; color: var(--accent); }
+.home-intro a { color: var(--muted); }
+.home-intro a:hover { color: var(--fg); }
 .label {
-  font-family: var(--sans);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted);
   margin: 0 0 0.6rem;
 }
-/* The newest post, shown larger than the rest */
-.latest { padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
-.latest h2 { font-size: 1.9rem; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
-.latest h2 a { color: var(--fg); text-decoration: none; }
-.latest h2 a:hover { color: var(--link); text-decoration: underline; }
-.latest .summary { font-size: 1.15rem; margin: 1rem 0 0; }
-.latest .more { font-family: var(--sans); font-size: 0.95rem; font-weight: 600; margin: 1rem 0 0; }
-.latest .more a { display: inline-block; padding: 0.6rem 0; }
-.earlier { margin-top: 2.5rem; }
-.earlier .label { color: var(--muted); margin-bottom: 1.25rem; }
-.post-list p:not(.draft):not(.meta) { font-size: 1rem; line-height: 1.55; }
-.post-list { list-style: none; margin: 0; padding: 0; }
-.post-list li { margin: 0 0 2.25rem; }
-.post-list h3 { font-size: 1.3rem; margin: 0 0 0.2rem; }
-.post-list h3 a, .project-posts a { color: var(--fg); text-decoration: none; }
-.post-list h3 a:hover, .project-posts a:hover { color: var(--link); text-decoration: underline; }
-.post-list p { margin: 0; }
-.post-list .meta { margin-bottom: 0.35rem; }
+
+/* The tree of posts: a root, a branch for each project, a leaf for each post.
+   Every item draws the upright line beside it and the short line that reaches
+   it at --tick from its top; the last item's upright line stops there. The
+   same tree, smaller, lists a post's sections beside the post. */
+.root {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0;
+}
+.root span { margin-left: auto; font-weight: 400; color: var(--muted); }
+.tree { list-style: none; margin: 0; padding: 0; }
+.tree li { position: relative; }
+.tree li::before {
+  content: "";
+  position: absolute;
+  left: 0.33rem;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid var(--line);
+}
+.tree li:last-child::before { bottom: auto; height: var(--tick); }
+.tree li::after {
+  content: "";
+  position: absolute;
+  left: 0.33rem;
+  top: var(--tick);
+  width: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+.branch { --tick: 1.85rem; padding: 1.1rem 0 0 2.4rem; }
+.branch-head { display: flex; align-items: baseline; gap: 0.7rem; font-family: var(--mono); font-size: 0.9rem; }
+.branch-head h2 { font: inherit; font-weight: 700; letter-spacing: 0; margin: 0; }
+.branch-head a {
+  display: inline-block;
+  padding: 0.4rem 0;
+  margin: -0.4rem 0;
+  color: var(--fg);
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 0.3em;
+}
+.branch-head a:hover { color: var(--link); }
+.branch-head span { margin-left: auto; font-size: 0.78rem; color: var(--muted); }
+.leaf {
+  --tick: 2.45rem;
+  display: grid;
+  grid-template-columns: 6.4rem 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 1.2rem;
+  padding: 1.5rem 0 0.6rem 2.4rem;
+}
+.leaf .when, .leaf .status { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.leaf .when { grid-column: 1; grid-row: 1; padding-top: 0.3rem; }
+.leaf .status { grid-column: 1; grid-row: 2; }
+.leaf .status .new { color: var(--ok); }
+.leaf .status .draft { display: block; white-space: normal; font-size: inherit; }
+.leaf > div { grid-column: 2; grid-row: 1 / span 2; min-width: 0; }
+.leaf h3 { font-size: 1.3rem; margin: 0; }
+.leaf h3 a { color: var(--fg); text-decoration: none; }
+.leaf h3 a:hover { color: var(--link); text-decoration: underline; }
+.leaf p { margin: 0.45rem 0 0; font-size: 1rem; line-height: 1.55; color: var(--soft); max-width: 32rem; }
+/* The newest post is the largest thing on the page. */
+.leaf.newest h3 { font-size: 1.9rem; line-height: 1.08; letter-spacing: -0.03em; }
+.leaf.newest p { font-size: 1.1rem; line-height: 1.6; color: var(--fg); max-width: none; }
+
+/* Added by assets/js/post.js on wide screens: the post's sections, in the
+   margin left of the text, with the one being read marked. */
+.rail { display: none; }
+@media screen and (min-width: 88rem) {
+  .rail {
+    display: block;
+    position: fixed;
+    top: 10.2rem;
+    left: calc(50% - 23rem - 14.5rem);
+    width: 13rem;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    line-height: 1.4;
+  }
+  .rail .root { font-size: inherit; }
+  .rail li { --tick: 1.3rem; padding: 0.75rem 0 0 1.5rem; }
+  .rail li::after { width: 0.9rem; }
+  .rail a { color: var(--muted); text-decoration: none; }
+  .rail a:hover { color: var(--fg); text-decoration: underline; }
+  .rail a[aria-current] { color: var(--fg); }
+  .rail li:has(a[aria-current])::after { border-top-color: var(--accent); }
+}
 
 /* Projects: each project is a card whose top is drawn as a small window */
 .project {
   border: 1px solid var(--rule);
-  border-radius: 12px;
+  border-radius: 6px;
   padding: 1.25rem 1.25rem 1.5rem;
   margin: 0 0 2.5rem;
 }
 .project h2 { font-size: 1.6rem; letter-spacing: -0.02em; margin: 1.25rem 0 0.4rem; }
-.project > p { margin: 0; }
+.project > p { margin: 0; max-width: var(--measure); }
 .window {
   border: 1px solid var(--rule);
-  border-radius: 8px;
+  border-radius: 4px;
   overflow: hidden;
   background: var(--code-bg);
 }
@@ -292,45 +456,58 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .window-bar span { flex: none; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--rule); }
 .window-bar span:first-child { background: var(--accent); }
 .window-bar code { background: none; padding: 0; margin-left: 0.5rem; color: var(--muted); font-size: 0.75rem; min-width: 0; overflow-wrap: anywhere; }
-.window-body { margin: 0; border: 0; border-radius: 0; background: none; font-size: 0.8rem; line-height: 1.6; color: var(--fg); }
+/* The drawing uses line characters the mono typeface does not carry, so it is
+   set in the device's own mono, where every character has the same width. */
+.window-body { margin: 0; border: 0; border-radius: 0; background: none; font-family: var(--mono-system); font-size: 0.8rem; line-height: 1.6; color: var(--fg); }
 .window-body .on { color: var(--accent); }
-.window-body .ok { color: var(--hl-string); }
+.window-body .ok { color: var(--ok); }
 .window-body .dim { color: var(--muted); }
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0 0; padding: 0; }
 .tags li {
-  font-family: var(--sans);
-  font-size: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
   color: var(--muted);
   border: 1px solid var(--rule);
-  border-radius: 999px;
-  padding: 0.15rem 0.65rem;
+  border-radius: 4px;
+  padding: 0.15rem 0.55rem;
 }
-.project-links { display: flex; flex-wrap: wrap; gap: 0 1.5rem; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; margin: 0.75rem 0 0; }
+.project-links { display: flex; flex-wrap: wrap; gap: 0 1.5rem; font-family: var(--mono); font-size: 0.85rem; font-weight: 600; margin: 0.75rem 0 0; }
 .project-links a { display: inline-block; padding: 0.5rem 0; }
-.project .label { color: var(--muted); margin: 1.5rem 0 0.5rem; }
+.project .label { margin: 1.5rem 0 0.5rem; }
 .project-posts { list-style: none; margin: 0; padding: 0; }
 .project-posts li { margin: 0 0 0.6rem; line-height: 1.4; }
-.project-posts a { font-family: var(--display); font-weight: 700; }
+.project-posts a { font-family: var(--display); font-weight: 700; color: var(--fg); text-decoration: none; }
+.project-posts a:hover { color: var(--link); text-decoration: underline; }
 .project-posts .meta { display: block; }
 
-/* Long-form text */
+/* Long-form text. Text is held to --measure; a table or code block may use
+   the full width of the page when it needs more room. */
+.prose > * { max-width: var(--measure); }
 .prose p, .prose ul, .prose ol, .prose blockquote, .prose pre, .prose table, .prose figure {
-  margin: 0 0 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
 }
 .prose ul, .prose ol { padding-left: 1.4rem; }
 .prose li { margin-bottom: 0.4rem; }
-.prose li::marker { color: var(--accent); font-family: var(--sans); font-weight: 600; }
+.prose li::marker { color: var(--accent); font-family: var(--mono); font-size: 0.85em; }
 .prose li > ul, .prose li > ol { margin: 0.4rem 0 0; }
+.prose a { text-decoration-style: dotted; }
+.prose a:hover { text-decoration-style: solid; }
 .prose img, .prose video { max-width: 100%; height: auto; }
 .prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
 .prose blockquote {
   margin-left: 0;
   margin-right: 0;
   padding-left: 1rem;
-  border-left: 3px solid var(--accent);
+  border-left: 2px solid var(--line);
   color: var(--muted);
 }
 .prose blockquote > :last-child { margin-bottom: 0; }
+.prose > .table-scroll, .prose > .highlighter-rouge, .prose > .code-block {
+  width: max-content;
+  min-width: min(var(--measure), 100%);
+  max-width: 100%;
+}
 
 /* Code */
 code, pre, kbd { font-family: var(--mono); font-size: 0.85em; }
@@ -342,11 +519,11 @@ code, pre, kbd { font-family: var(--mono); font-size: 0.85em; }
 pre {
   background: var(--code-bg);
   border: 1px solid var(--rule);
-  border-radius: 6px;
+  border-radius: 4px;
   padding: 0.9rem 1rem;
   overflow-x: auto;
   line-height: 1.5;
-  font-size: 0.875rem;
+  font-size: 0.82rem;
   tab-size: 2;
 }
 pre code { font-size: inherit; background: none; padding: 0; }
@@ -371,7 +548,7 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
-  font: 600 0.75rem/1 var(--sans);
+  font: 600 0.72rem/1 var(--mono);
   color: var(--muted);
   background: var(--bg);
   border: 1px solid var(--rule);
@@ -409,9 +586,9 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
   max-width: 100%;
   overflow-x: auto;
   border-collapse: collapse;
-  font-family: var(--sans);
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 .prose th, .prose td {
   border-bottom: 1px solid var(--rule);
@@ -441,23 +618,37 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 .highlight .gs { font-weight: 700; }
 .highlight .err { color: inherit; }
 
-@media (max-width: 30rem) {
+@media (max-width: 40rem) {
   body { font-size: 1.0625rem; }
-  h1 { font-size: 1.8rem; }
-  .latest h2 { font-size: 1.6rem; }
+  h1 { font-size: 1.9rem; }
   main.wrap { padding-top: 1.75rem; }
-  /* Keeps the name and the four menu links on one row on a phone. */
+  /* Keeps the name and the three menu links on one row on a phone. */
   .site-header .wrap { column-gap: 0.75rem; }
   .site-header nav { gap: 1rem; }
+  /* In the tree the date and the reading time share a row above the title. */
+  .branch { padding-left: 1.5rem; }
+  .tree li::after { width: 1rem; }
+  .leaf {
+    --tick: 2.05rem;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto;
+    padding: 1.4rem 0 0.5rem 1.5rem;
+  }
+  .leaf .when { padding-top: 0; }
+  .leaf .status { grid-column: 2; grid-row: 1; text-align: right; }
+  .leaf > div { grid-column: 1 / -1; grid-row: 2; margin-top: 0.3rem; }
+  .leaf.newest h3 { font-size: 1.55rem; }
   /* Let a small table wrap to the screen before it has to scroll sideways. */
   .prose table { font-size: 0.875rem; }
   .prose th { white-space: normal; }
   .prose th, .prose td { padding-right: 0.6rem; }
   .post-nav { grid-template-columns: 1fr; }
   .post-nav .older { grid-column: 1; text-align: left; }
+  .post-project { grid-template-columns: 1fr; }
 }
 
 @media print {
-  .site-header nav, .site-footer, .back, .post-nav, .skip, .anchor, .copy { display: none; }
-  body { display: block; min-height: 0; background: #fff; color: #000; border-top: 0; }
+  .site-header nav, .site-footer, .back, .crumb, .rail, .post-nav, .post-project, .skip, .anchor, .copy { display: none; }
+  :root { --bg: #fff; --fg: #000; --muted: #444; --soft: #222; --code-bg: #f4f4f4; --rule: #ccc; --line: #999; }
+  body { display: block; min-height: 0; }
 }
