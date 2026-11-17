@@ -24,7 +24,8 @@ schedule.
   or work you did in this session. Nothing invented, nothing rounded up, no
   quotes nobody said. If a fact is missing, ask for it or leave it out.
 - State the honest limits (how many runs, how many models, what was not tested)
-  in one short paragraph near the end.
+  in a sentence or two near the end, inside the closing paragraph, never under
+  a heading of their own.
 - Name no person other than Ivo, and no AI model or provider unless Ivo asks:
   write "one model", not its name. Tools and products may be named. No private
   details, internal URLs, tokens, session links or cost figures unless Ivo asked
@@ -35,15 +36,16 @@ schedule.
 
 ## 3. Brief, for a human reader
 
-- **Length:** 400 to 700 words of body, tables included. 900 is the ceiling and
-  needs a reason you can state. One idea per post.
+- **Length:** 300 to 600 words of body, tables included. Shorter is better once
+  the story is complete: cut every section that is not the one idea. 800 is the
+  ceiling and needs a reason you can state. One idea per post.
 - **Opening:** the `summary` is printed as the lede above the body, so it says
   what happened and why it matters to someone who does not know the project. The
   body starts with the situation. Introduce the project only where the story
   cannot be followed without it, in a sentence, and never as self-promotion
   ("I maintain ..."). Do not repeat the summary in the body.
 - **Order:** the situation, what was tried or expected, what actually happened,
-  what changed, the limits, the lesson. The lesson is short (about 100 words at
+  what changed, the lesson with the limits folded in. The lesson is short (about 100 words at
   most) and says only what the story showed.
 - **Headings:** a few short `##` headings that are plain labels, six at most,
   none for a very short post. No questions as headings.
@@ -55,11 +57,14 @@ schedule.
   exclamation marks.
 - **Title:** what actually happened, with a concrete noun from the story, under
   about 60 characters: "The key was in the report, and the report was held",
-  not a slogan or advice like "Change delivery, not the prompt". Offer Ivo two
+  not a slogan or advice like "Change delivery, not the prompt". A short phrase
+  is fine when what happened follows it: "Less is more: cutting courier from 11
+  tools to 8". Offer Ivo two
   or three titles and say which you would pick.
   **Summary:** one to three short sentences that work alone as the teaser.
-- **Reference** for length, tone and structure:
-  `_posts/2026-11-10-banning-a-tool-is-not-handling-it.md`.
+- **Reference** for tone: `_posts/2026-11-10-banning-a-tool-is-not-handling-it.md`.
+  For length and structure:
+  `_posts/2026-11-17-less-is-more-cutting-courier-to-8-tools.md`.
 
 ## 4. Mechanics of this site
 
@@ -134,7 +139,7 @@ himself. Do not commit it unless asked. A session never posts to LinkedIn.
 
 - [ ] Body word count is within range (counted, not estimated).
 - [ ] Every fact, number and name traces to the source material.
-- [ ] Limits are stated near the end; no person named but Ivo; no model named;
+- [ ] Limits are stated in the closing, with no heading of their own; no person named but Ivo; no model named;
       nothing private.
 - [ ] No bare `#123` references; no project introduction the story does not need.
 - [ ] Title says what happened, concretely, under about 60 characters; summary
