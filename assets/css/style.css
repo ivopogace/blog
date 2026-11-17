@@ -233,6 +233,19 @@ h1 { font-size: 2.7rem; line-height: 1.08; margin: 0 0 0.6rem; letter-spacing: -
   margin-right: 0.7em;
   vertical-align: 0.18em;
 }
+/* Where the page has a margin, the "##" hangs in it, so the heading starts on
+   the same line as the text below it. */
+@media screen and (min-width: 56rem) {
+  .prose h2 { position: relative; }
+  .prose h2::before {
+    position: absolute;
+    right: 100%;
+    top: 0.42em;
+    margin-right: 0.75rem;
+    line-height: 1;
+    vertical-align: 0;
+  }
+}
 .prose h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
 
 .meta {
