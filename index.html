@@ -1,8 +1,10 @@
 ---
 layout: default
 ---
-<h1>{{ site.tagline | escape }}</h1>
-<p class="intro">I’m {{ site.author | escape }}. {{ site.description | escape }} <a href="{{ '/about/' | relative_url }}">About me</a></p>
+<header class="home-intro">
+  <h1>{{ site.tagline | escape }}</h1>
+  <p>I’m {{ site.author | escape }}. {{ site.description | escape }} <a href="{{ '/about/' | relative_url }}">About me</a></p>
+</header>
 {% if site.posts.size > 0 %}
 {%- assign latest = site.posts.first %}
 {%- assign latest_minutes = latest.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}

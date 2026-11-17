@@ -104,7 +104,7 @@ html {
 /* On wide screens everything sized in rem scales up together, so the wider
    column below still holds no more than about 80 characters per line. */
 @media screen and (min-width: 48rem) {
-  html { font-size: 125%; }
+  html { font-size: 112.5%; }
 }
 
 body {
@@ -126,7 +126,7 @@ body {
 ::selection { background: color-mix(in srgb, var(--accent) 25%, transparent); }
 
 .wrap {
-  max-width: 38.5rem; /* 720px of text on wide screens, about 77 characters per line */
+  max-width: 38.5rem; /* 648px of text on wide screens, about 77 characters per line */
   margin: 0 auto;
   padding: 0 1.25rem;
 }
@@ -202,7 +202,7 @@ h1, h2, h3, h4 {
   line-height: 1.2;
   text-wrap: balance;
 }
-h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0.025em; }
+h1 { font-size: 2.4rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0.025em; }
 .prose h2 { font-size: 1.4rem; margin: 2.25rem 0 0.5rem; }
 .prose h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
 
@@ -215,8 +215,33 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .lede { font-size: 1.2rem; color: var(--muted); margin: 1rem 0 0; }
 .post-header { margin-bottom: 2rem; }
 .draft { color: var(--draft); font-family: var(--sans); font-size: 0.9rem; font-weight: 600; }
-.back { font-family: var(--sans); font-size: 0.95rem; margin-top: 2rem; }
+.back {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1.5rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  margin-top: 2rem;
+}
 .back a { display: inline-block; padding: 0.5rem 0; }
+.back span { color: var(--muted); }
+
+/* Under a post: the project it is about, drawn like its card on the Projects page */
+.post-project {
+  display: grid;
+  grid-template-columns: 14.5rem 1fr;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 3rem;
+  padding: 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+.post-project .label { color: var(--muted); font-size: 0.8rem; margin-bottom: 0.3rem; }
+.post-project h2 { font-size: 1.3rem; margin: 0 0 0.3rem; }
+.post-project p { font-size: 1rem; line-height: 1.5; margin: 0; }
+.post-project .project-links { font-size: 0.95rem; margin-top: 0.4rem; }
 
 /* Newer and older post, under a post */
 .post-nav {
@@ -234,10 +259,17 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 .post-nav a:hover { color: var(--link); text-decoration: underline; }
 .post-nav span { display: block; font-family: var(--sans); color: var(--muted); font-size: 0.85rem; font-weight: 400; margin-bottom: 0.2rem; }
 .post-nav .older { grid-column: 2; text-align: right; }
+/* A post with only one neighbour: the link starts at the left edge. */
+.post-nav a:only-child { grid-column: 1; text-align: left; }
 
 /* Index */
 .intro { color: var(--muted); margin: 0 0 2.5rem; }
-.intro a { white-space: nowrap; }
+.intro a, .home-intro a { white-space: nowrap; }
+/* The home page opens with one quiet line about the site, so that the newest
+   post is the largest thing on the page. */
+.home-intro { margin: 0 0 2.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--rule); color: var(--muted); font-size: 1rem; line-height: 1.5; }
+.home-intro h1 { font-size: 1.1rem; line-height: 1.3; letter-spacing: -0.01em; color: var(--fg); margin: 0 0 0.15rem; }
+.home-intro p { margin: 0; }
 .label {
   font-family: var(--sans);
   font-size: 0.8rem;
@@ -249,7 +281,7 @@ h1 { font-size: 2.2rem; line-height: 1.1; margin: 0 0 0.6rem; letter-spacing: -0
 }
 /* The newest post, shown larger than the rest */
 .latest { padding-bottom: 2.5rem; border-bottom: 1px solid var(--rule); }
-.latest h2 { font-size: 1.9rem; line-height: 1.12; letter-spacing: -0.02em; margin: 0 0 0.5rem; }
+.latest h2 { font-size: 2.4rem; line-height: 1.1; letter-spacing: -0.025em; margin: 0 0 0.6rem; }
 .latest h2 a { color: var(--fg); text-decoration: none; }
 .latest h2 a:hover { color: var(--link); text-decoration: underline; }
 .latest .summary { font-size: 1.15rem; margin: 1rem 0 0; }
@@ -403,6 +435,19 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 .code-block > pre { margin: 0; }
 .prose .table-scroll > table { display: table; overflow: visible; max-width: none; margin: 0; }
 
+/* On a wide screen a table or code block that needs more room than the text
+   column grows past it on both sides, up to 864px, before it scrolls. One that
+   fits stays as wide as the text. */
+@media screen and (min-width: 64rem) {
+  .prose .table-scroll, .prose .highlighter-rouge, .prose .code-block {
+    width: max-content;
+    min-width: 100%;
+    max-width: calc(100% + 12rem);
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
 /* Tables scroll sideways on their own instead of widening the page */
 .prose table {
   display: block;
@@ -443,10 +488,11 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 
 @media (max-width: 30rem) {
   body { font-size: 1.0625rem; }
-  h1 { font-size: 1.8rem; }
-  .latest h2 { font-size: 1.6rem; }
+  h1, .latest h2 { font-size: 1.8rem; }
+  .home-intro h1 { font-size: 1.05rem; }
+  .post-project { grid-template-columns: 1fr; }
   main.wrap { padding-top: 1.75rem; }
-  /* Keeps the name and the four menu links on one row on a phone. */
+  /* Keeps the name and the three menu links on one row on a phone. */
   .site-header .wrap { column-gap: 0.75rem; }
   .site-header nav { gap: 1rem; }
   /* Let a small table wrap to the screen before it has to scroll sideways. */
@@ -458,6 +504,6 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
 }
 
 @media print {
-  .site-header nav, .site-footer, .back, .post-nav, .skip, .anchor, .copy { display: none; }
+  .site-header nav, .site-footer, .back, .post-nav, .post-project, .skip, .anchor, .copy { display: none; }
   body { display: block; min-height: 0; background: #fff; color: #000; border-top: 0; }
 }
