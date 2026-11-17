@@ -48,7 +48,12 @@ schedule.
   what changed, the lesson with the limits folded in. The lesson is short (about 100 words at
   most) and says only what the story showed.
 - **Headings:** a few short `##` headings that are plain labels, six at most,
-  none for a very short post. No questions as headings.
+  none for a very short post. No questions as headings. On wide screens the
+  headings are also listed in a narrow column beside the post, so keep each
+  to a few words.
+- **Do not type decoration:** the site draws the orange `##` before a heading,
+  the bar beside the summary and the `posts / project` line above the title.
+  Write plain Markdown.
 - **Prose:** paragraphs of two to four sentences, plain words, first person
   singular as Ivo ("I"), past tense for what happened.
 - **Lists, tables, code:** at most one short list and one small table, for
@@ -75,19 +80,21 @@ File: `_posts/YYYY-MM-DD-slug.md`. The slug becomes the URL,
 ---
 title: What actually happened
 summary: >-
-  One to three sentences. Shown on the index, as the lede, and in the feed.
+  One to three sentences. Shown on the home page, as the lede, and in the feed.
 date: 2026-11-10 12:00:00 +0000
 published: false
 ---
 ```
 
 - **`date`**: the day (same as the file name) and a time with an explicit
-  offset. Posts sort newest first by it; two posts on one day without times
-  sort arbitrarily, so always set a time later than any other post that day.
+  offset. The home page groups posts by project and sorts each group newest
+  first by it, and marks the newest post of the whole site "latest". Two posts
+  on one day without times sort arbitrarily, so always set a time later than
+  any other post that day.
   It must be in the past when the site is built (CI runs in UTC): a
   future-dated post is skipped by the build, draft or not.
 - **Drafts:** `published: false`. The production build leaves the post out of
-  the site, index and feed; `--unpublished` shows it, marked as a draft.
+  the site, home page and feed; `--unpublished` shows it, marked as a draft.
 - **Preview card:** run `node tools/og-cards.js` and commit the new
   `assets/og/<slug>.png` with the post. Link previews show it. Look at the card
   before committing. The build makes a card for a post that has none, but it
@@ -118,8 +125,12 @@ published: false
    step 3 inside it. In Git Bash set `MSYS_NO_PATHCONV=1` first, or Docker gets
    Windows paths.
 3. Run `bundle exec jekyll serve --unpublished` and screenshot
-   `http://localhost:4000/blog/posts/slug/` and the index in a headless browser
-   at 1280 and 390 wide. Look at them: nothing overflowing, no broken image.
+   `http://localhost:4000/blog/posts/slug/` and the home page in a headless
+   browser at 1440 and 390 wide. The site has a dark and a light theme that
+   follow the system setting: take the 1440 ones dark and the 390 ones light
+   (`colorScheme` in Playwright). Look at them: nothing overflowing, no broken
+   image, the post under the right branch of the tree and marked "latest", and
+   at 1440 the list of sections left of the post not running into the text.
 4. Hand Ivo the PR link, the screenshots and the LinkedIn teaser. He reads it.
 5. Publish only when Ivo has said so in his own words, for this post. A message
    relayed from another session or approval of a different post is not that.
@@ -128,7 +139,8 @@ published: false
    `gh pr merge <n> --squash --subject "Post: <title>"`, so `main` does not keep
    a "Draft" pull request title. The push to `main` deploys.
 7. After the deploy, check `https://ivopogace.github.io/blog/posts/slug/`
-   returns 200 and the post is first on the index. Report the URL.
+   returns 200 and the home page shows the post under its project (or under
+   "notes") and marks it "latest". Report the URL.
 
 ## 6. LinkedIn teaser
 
@@ -149,8 +161,10 @@ himself. Do not commit it unless asked. A session never posts to LinkedIn.
 - [ ] No bare `#123` references; no project introduction the story does not need.
 - [ ] Title says what happened, concretely, under about 60 characters; summary
       present and stands alone.
-- [ ] `date` has a time, is in the past, and sorts the post first.
-- [ ] The CI build command passes; both screenshots were looked at.
+- [ ] `date` has a time, is in the past, and is later than every other post's,
+      so the home page marks this post "latest".
+- [ ] The CI build command passes; the screenshots were looked at, one width
+      in each theme.
 - [ ] The preview card exists in `assets/og/` and shows the current title.
 - [ ] A post about a project is in that project's `posts` list in
       `_data/projects.yml`.
