@@ -6,7 +6,6 @@ summary: >-
   offered is paid for on every request, used or not, and that is the case for
   keeping a plugin small.
 date: 2026-11-17 12:00:00 +0000
-published: false
 ---
 
 [opencode-courier](https://github.com/ivopogace/opencode-courier) lets an
