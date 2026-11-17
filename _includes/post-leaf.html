@@ -1,0 +1,17 @@
+{%- comment %} One post in the tree on the home page. Takes `post`, and
+    `newest` (the newest post of the site), which is drawn larger. {% endcomment %}
+{%- assign leaf = include.post %}
+{%- assign minutes = leaf.content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
+<li class="leaf{% if leaf.url == include.newest.url %} newest{% endif %}">
+  <span class="when"><time datetime="{{ leaf.date | date_to_xmlschema }}">{{ leaf.date | date: "%Y-%m-%d" }}</time></span>
+  <span class="status">
+    {%- if leaf.url == include.newest.url %}<span class="new">latest</span> · {% endif %}{{ minutes }} min
+    {%- if leaf.published == false %} <span class="draft">Draft, not published</span>{% endif -%}
+  </span>
+  <div>
+    <h3><a href="{{ leaf.url | relative_url }}">{{ leaf.title | escape }}</a></h3>
+    {%- if leaf.summary %}
+    <p>{{ leaf.summary | escape }}</p>
+    {%- endif %}
+  </div>
+</li>

@@ -2,8 +2,20 @@
 layout: default
 ---
 {%- assign minutes = content | strip_html | number_of_words | plus: 199 | divided_by: 200 | at_least: 1 %}
+{%- comment %} The project this post is about, from _data/projects.yml. {% endcomment %}
+{%- assign about = nil %}
+{%- for project in site.data.projects %}
+  {%- if project.posts contains page.slug %}
+    {%- assign about = project %}
+    {%- break %}
+  {%- endif %}
+{%- endfor %}
 <article class="post">
   <header class="post-header">
+    <nav class="crumb" aria-label="Where this post is">
+      <a href="{{ '/' | relative_url }}">posts</a><span aria-hidden="true">/</span>
+      {%- if about %}<a href="{{ '/projects/' | relative_url }}">{{ about.name | escape }}</a>{% else %}notes{% endif %}
+    </nav>
     <h1>{{ page.title | escape }}</h1>
     <p class="meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time> · {{ minutes }} min read
@@ -17,14 +29,6 @@ layout: default
     {{ content }}
   </div>
 </article>
-{%- comment %} The project this post is about, from _data/projects.yml. {% endcomment %}
-{%- assign about = nil %}
-{%- for project in site.data.projects %}
-  {%- if project.posts contains page.slug %}
-    {%- assign about = project %}
-    {%- break %}
-  {%- endif %}
-{%- endfor %}
 {%- if about %}
 <aside class="post-project" aria-labelledby="post-project-heading">
   <div class="window" aria-hidden="true">

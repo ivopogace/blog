@@ -95,6 +95,11 @@ published: false
 - **Title and slug first:** settle the title before making the card and the
   teaser. If a new title changes the slug, rename the post file, `git rm` the
   old card, make the new one, and fix the URL in the teaser.
+- **Project:** a post about a project goes in that project's `posts` list in
+  `_data/projects.yml`, by slug. The home page shows the post under that
+  project, the post gets the project card at its end, and the Projects page
+  lists it. A post in no list appears under "notes". If the slug changes,
+  change it there too.
 - **Images:** `assets/images/<slug>/`, with alt text. The site lives under
   `/blog/`, so never write a bare `/assets/...` path:
   `![What it shows]({{ '/assets/images/slug/name.png' | relative_url }})`.
@@ -147,6 +152,8 @@ himself. Do not commit it unless asked. A session never posts to LinkedIn.
 - [ ] `date` has a time, is in the past, and sorts the post first.
 - [ ] The CI build command passes; both screenshots were looked at.
 - [ ] The preview card exists in `assets/og/` and shows the current title.
+- [ ] A post about a project is in that project's `posts` list in
+      `_data/projects.yml`.
 - [ ] `published: false` is set, unless Ivo approved this post himself.
 - [ ] The LinkedIn teaser is within range and ends with the full URL of the
       final slug.

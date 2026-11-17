@@ -22,7 +22,10 @@ before writing, editing or publishing a post. It sets the voice, length and publ
    The text of the post.
    ```
 
-3. Push to `main` (or open a pull request and merge it). That is all.
+3. If the post is about a project, add its slug to that project's `posts` list
+   in `_data/projects.yml`. The home page then shows it under that project;
+   a post in no list appears under "notes".
+4. Push to `main` (or open a pull request and merge it). That is all.
 
 Notes:
 
@@ -94,10 +97,11 @@ Source** must be set to **GitHub Actions**.
 |---|---|
 | `_posts/` | The posts |
 | `about.md` | The About page |
-| `_layouts/`, `index.html`, `404.html` | Page templates |
+| `_layouts/`, `_includes/`, `index.html`, `404.html` | Page templates. `index.html` draws the posts as a tree; `_includes/post-leaf.html` is one post in it |
+| `_data/projects.yml` | The projects, and which posts are about each. It feeds the Projects page, the branches of the tree on the home page, and the project card under a post |
 | `assets/css/style.css` | All of the styling (light and dark) |
-| `assets/js/post.js` | Heading links and copy buttons on post pages; the pages work without it |
-| `assets/fonts/` | The typefaces, Bricolage Grotesque for headings and Charis SIL for body text, with their licences |
+| `assets/js/post.js` | The list of sections beside a post, heading links and copy buttons; the pages work without it |
+| `assets/fonts/` | The typefaces with their licences: Bricolage Grotesque for titles, Charis SIL for body text, JetBrains Mono for the menu, dates, labels and code |
 | `assets/og/`, `tools/og-cards.js` | Preview images for shared links, and the script that makes them |
 | `.claude/skills/blog-post/` | Instructions for Claude Code sessions writing a post |
 | `_config.yml` | Site title, description, URL settings, profile links for the footer |
