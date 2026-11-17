@@ -32,30 +32,19 @@ key in the tree panel already does, and a parameter did what a plain message
 already does. Each one is another line in the README, another test, and
 another thing to re-check when OpenCode ships a new release.
 
-## What went
+## The cut
 
-I had no usage numbers, so I decided from what I use, what the tests exercise
-and what the issue tracker shows. I never used the memory feature or join
-groups outside the demo and the tests, and no issue from anyone else mentioned
-them.
-
-Release 0.17.0 removed memory with its two tools, the children listing, join
-groups, two parameters, the duplicate command and two options. That came to
-106 files changed, 1,455 lines added and 9,354 removed, in one day. The next
-day a session that cannot start sessions stopped being offered the three tools
-that could only fail for it, and each of its requests now carries 4,099 fewer
-characters of tool text.
-
-## Limits
-
-This is one project, one maintainer and one release. What to remove rested on
-my own use and an issue tracker, not on data from users. I measured the size of
-the tool text, not what it changes in a model's answers. And the work per
-OpenCode release barely shrank: the notes I keep on it went from 692 lines to
-683.
+So release 0.17.0 took out what I never used and no issue mentioned,
+memory and join groups among them, along with the duplicates: three tools, two
+options and 9,354 lines, in one day. A day later, a session that cannot start
+sessions stopped being offered the three tools that could only fail for it,
+which takes 4,099 characters off each of its requests.
 
 ## What I took from it
 
-For a plugin that models read, every feature is paid for on every request, by
-every session, whether it is used or not. That made "no known user" a good
-enough reason to remove something.
+I had no usage data, only my own use and an issue tracker, and I measured the
+size of the tool text, not what it changes in a model's answers. The work per
+OpenCode release barely shrank either. But for a
+plugin that models read, every feature is paid for on every request, by every
+session, whether it is used or not. That made "no known user" a good enough
+reason to remove something.
