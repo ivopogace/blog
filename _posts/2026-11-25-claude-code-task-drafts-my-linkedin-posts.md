@@ -1,5 +1,5 @@
 ---
-title: "A Discord inbox for my LinkedIn drafts, step by step"
+title: "How a Claude Code scheduled task drafts my LinkedIn posts"
 summary: >-
   A scheduled Claude Code task now reads a private Discord channel three times a
   day, drafts LinkedIn posts about what arrived, and publishes one only after I
@@ -42,7 +42,7 @@ A link I paste there myself counts as well, which was how I tested the first
 run, before anything had arrived.
 
 <figure class="shot" data-focus='[{"label":"the state message","x":0.098,"y":0.458,"w":0.514,"h":0.064}]'>
-<div class="shot-view"><img src="{{ '/assets/images/linkedin-drafts-from-a-discord-inbox/inbox.png' | relative_url }}" width="884" height="502" loading="lazy" alt="A dark chat channel named claude-updates. Two notices say I followed Claude updates and OpenCode releases into it. A link I pasted and a followed research post each carry a memo reaction. A pinned message from the bot, Update Reader, reads: linkedin-drafts state: claude-code=2.1.332 courier=1.0.0; that text is outlined in orange."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/inbox.png' | relative_url }}" width="884" height="502" loading="lazy" alt="A dark chat channel named claude-updates. Two notices say I followed Claude updates and OpenCode releases into it. A link I pasted and a followed research post each carry a memo reaction. A pinned message from the bot, Update Reader, reads: linkedin-drafts state: claude-code=2.1.332 courier=1.0.0; that text is outlined in orange."></div>
 <figcaption>The private channel. Redrawn from the channel's real messages, with names and IDs left out. The outlined message is the run's memory (step 6).</figcaption>
 </figure>
 
@@ -69,7 +69,7 @@ session opens for one host, `api.linkedin.com`, and is saved as a network
 secret. The session never sees it: the proxy adds the header on the way out.
 
 <figure class="shot" data-focus='[{"label":"no Authorization header","x":0.04,"y":0.274,"w":0.77,"h":0.055}]'>
-<div class="shot-view"><img src="{{ '/assets/images/linkedin-drafts-from-a-discord-inbox/terminal.png' | relative_url }}" width="884" height="324" loading="lazy" alt="A terminal. A curl to the LinkedIn userinfo endpoint without an Authorization header returns HTTP 200. A check prints token set without printing the token, and a call to the Discord API returns the bot's name, Update Reader."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/terminal.png' | relative_url }}" width="884" height="324" loading="lazy" alt="A terminal. A curl to the LinkedIn userinfo endpoint without an Authorization header returns HTTP 200. A check prints token set without printing the token, and a call to the Discord API returns the bot's name, Update Reader."></div>
 <figcaption>Both checks, run in a cloud session today. Neither prints a token.</figcaption>
 </figure>
 
@@ -101,7 +101,7 @@ feed, read the channel, draft, record what was drafted, notify me, ask, and
 post only on a clear yes.
 
 <figure class="shot" data-focus='[{"label":"the schedule","x":0.04,"y":0.209,"w":0.921,"h":0.125}]'>
-<div class="shot-view"><img src="{{ '/assets/images/linkedin-drafts-from-a-discord-inbox/task.png' | relative_url }}" width="884" height="487" loading="lazy" alt="A card for the scheduled task LinkedIn drafts. Schedule: CRON_TZ=Europe/Berlin 36 6,12,18 * * *, every day at 06:36, 12:36 and 18:36. Each run starts a fresh cloud session, sends a push notification, and has the DISCORD_BOT_TOKEN variable and the api.linkedin.com network secret. The first lines of the prompt say to post only after explicit approval."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/task.png' | relative_url }}" width="884" height="487" loading="lazy" alt="A card for the scheduled task LinkedIn drafts. Schedule: CRON_TZ=Europe/Berlin 36 6,12,18 * * *, every day at 06:36, 12:36 and 18:36. Each run starts a fresh cloud session, sends a push notification, and has the DISCORD_BOT_TOKEN variable and the api.linkedin.com network secret. The first lines of the prompt say to post only after explicit approval."></div>
 <figcaption>The task's settings and the start of its prompt.</figcaption>
 </figure>
 
@@ -125,12 +125,12 @@ first and rewrites it after drafting.
 When a run has drafts, I get a push notification, and the session waits.
 
 <figure class="shot shot-narrow" data-focus='[{"label":"the notification","x":0.07,"y":0.435,"w":0.86,"h":0.414}]'>
-<div class="shot-view"><img src="{{ '/assets/images/linkedin-drafts-from-a-discord-inbox/notify.png' | relative_url }}" width="444" height="350" loading="lazy" alt="A phone lock screen at 18:38 with a notification: 1 LinkedIn draft ready for review, Migrating our Messages API to Rust, followed by the status of each check."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/notify.png' | relative_url }}" width="444" height="350" loading="lazy" alt="A phone lock screen at 18:38 with a notification: 1 LinkedIn draft ready for review, Migrating our Messages API to Rust, followed by the status of each check."></div>
 <figcaption>The notification from the run of 25 November, redrawn with its real text.</figcaption>
 </figure>
 
 <figure class="shot" data-focus='[{"label":"the status line","x":0.04,"y":0.108,"w":0.921,"h":0.086},{"label":"the question","x":0.04,"y":0.875,"w":0.603,"h":0.073}]'>
-<div class="shot-view"><img src="{{ '/assets/images/linkedin-drafts-from-a-discord-inbox/run.png' | relative_url }}" width="884" height="587" loading="lazy" alt="The run's reply. A status line with a check mark for LinkedIn, npm, courier, blog and Discord. A three-line draft about the Messages API moving to Rust, its link, the quotes it is based on, and the closing question: Reply post 1, post all etc. to publish on LinkedIn, or tell me what to change."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/run.png' | relative_url }}" width="884" height="587" loading="lazy" alt="The run's reply. A status line with a check mark for LinkedIn, npm, courier, blog and Discord. A three-line draft about the Messages API moving to Rust, its link, the quotes it is based on, and the closing question: Reply post 1, post all etc. to publish on LinkedIn, or tell me what to change."></div>
 <figcaption>The same run's reply. Every draft lists the quotes it rests on.</figcaption>
 </figure>
 
