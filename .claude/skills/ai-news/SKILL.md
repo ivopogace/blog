@@ -21,10 +21,10 @@ an answer to "what does this change for how I work?", and that answer comes
 from Ivo's own setup: what he did before, what this replaces or makes
 possible. If nobody can say what it changes for Ivo, ask him before writing.
 
-Enthusiasm is fine, and the post can say why the update matters. The
-excitement has to rest on what the feature does, not on adjectives. Leave
-"gamechanger", "revolutionary" and the like out of the post. Let the before
-and after make that case.
+Enthusiasm is welcome. These posts can be upbeat and say plainly why the
+update matters. Ivo's own verdict ("a game changer") is fine, once, as his
+opinion, when the before and after in the post back it up. Do not hedge every
+line: one short sentence near the end on how fresh the experience is.
 
 ## 2. Facts: three kinds, kept apart
 
@@ -51,13 +51,18 @@ to tell which:
 
 ## 3. Shape
 
-- **Length:** 250 to 500 words of body. News ages fast, so keep it short.
+- **Length:** 250 to 400 words of body. News ages fast, so keep it short.
+- **Reader:** someone who uses AI tools but does not know their internals.
+  Explain what the feature does for a person, not how it is built: no tool
+  names, schemas or note formats.
+- **Angle:** open with the pain the update removes, in an image or a plain
+  scene, then the update, then what it changes.
 - **Order:** the situation before the update; the update itself, with the
   source quoted; what it does in practice; why it matters to Ivo, with the
   limits folded into the close.
 - **Title:** the product and what changed, concretely, under about 60
-  characters ("Claude Code cloud sessions now keep a memory"). No hype words,
-  no question marks. Offer two or three, with a pick.
+  characters ("Claude Code finally remembers between sessions"). No question
+  marks. Offer two or three, with a pick.
 - **Project:** news posts go in no project's list, so they appear under
   "notes". The exception is an update that is part of a project's own story.
 - **Follow-up:** if the post ends on something not yet tried, say so plainly.
@@ -70,5 +75,6 @@ Run the `blog-post` self-check (section 7). Also check:
 
 - [ ] Every claim about the feature is quoted from or traceable to the source.
 - [ ] Vendor claims, what was seen, and what Ivo expects are distinguishable.
-- [ ] No hype words. Any enthusiasm comes from the before and after.
+- [ ] The enthusiasm is backed by the before and after; at most one verdict
+      phrase; no hedging in every paragraph.
 - [ ] Screenshots are cropped of anything private and have alt text.
