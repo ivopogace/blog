@@ -2,10 +2,9 @@
 title: Claude Code finally remembers between sessions
 summary: >-
   Claude Code's cloud sessions can now keep a memory that carries over from one
-  session to the next. Until now, every session started from zero. I think
-  this one is a game changer.
+  session to the next. Until now, every session started from zero. It seems
+  to come switched on by default, and I think it is a game changer.
 date: 2026-11-25 23:00:00 +0000
-published: false
 ---
 
 Picture a colleague who is brilliant and fast, and who forgets everything you
@@ -42,6 +41,8 @@ rules file keeps the big rules, and the small things can now simply build up.
 It also comes with guardrails. What gets saved goes through an automated
 safety check, and I can ask a session to forget something.
 
-I only switched it on today, so this is a first impression, not a verdict.
-But it is the first update in a while that changes how a session starts, not
-just what it can do.
+I did not switch it on myself. As far as I can tell it arrived with a recent
+update, switched on by default. So if you use Claude Code's cloud sessions,
+your sessions may already be remembering, and it is worth a look under
+Settings, Your Claude, to see what is on. For me it is the first update in a
+while that changes how a session starts, not just what it can do.
