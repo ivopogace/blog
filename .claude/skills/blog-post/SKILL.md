@@ -11,6 +11,9 @@ Posts go out under Ivo Pogaçe's name, in his voice. Work through in order.
 
 ## 1. Is there a post
 
+A post about AI news or an update (a new feature, release or setting in an AI
+tool) follows the `ai-news` skill instead of this section.
+
 A post needs a story: something was tried, something surprised, something
 changed. Good sources are a decision that went against the first instinct, a bug
 whose cause was not where it looked, a test that proved the tooling wrong, or a
