@@ -9,11 +9,10 @@ date: 2026-11-25 22:00:00 +0000
 published: false
 ---
 
-I wanted to turn the announcements I already read into short LinkedIn posts,
-without copying links around by hand. The announcements live in public Discord
-channels, and a cloud session cannot read Discord on its own: a channel can
-only be read by someone who is in that server. So the plan became a small
-chain, with a person at the one step that matters.
+I wanted to turn the announcements I already read into short LinkedIn posts.
+They live in public Discord channels, which only members of a server can read,
+and a cloud session is not a member. So the plan became a small chain, with a
+person at the one step that matters.
 
 ## How it fits together
 
@@ -25,8 +24,8 @@ chain, with a person at the one step that matters.
   <li><b>LinkedIn</b><span>posted through the API, only after I approve</span></li>
 </ol>
 
-The same run also checks npm for new Claude Code and opencode-courier versions
-and this blog's feed, but the Discord part is what needed the most setup.
+The same run also checks npm and this blog's feed, but Discord needed the most
+setup.
 
 ## The steps
 
@@ -38,11 +37,10 @@ and this blog's feed, but the Discord part is what needed the most setup.
 I made a Discord server only I am in, with one channel, `#claude-updates`.
 On each announcement channel I wanted, I pressed **Follow** and picked that
 channel. From then on every new post is copied into it, with its preview card.
-A link I paste there myself counts as well, which was how I tested the first
-run, before anything had arrived.
+A link I paste there myself counts too.
 
 <figure class="shot" data-focus='[{"label":"the state message","x":0.098,"y":0.458,"w":0.514,"h":0.064}]'>
-<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/inbox.png' | relative_url }}" width="884" height="502" loading="lazy" alt="A dark chat channel named claude-updates. Two notices say I followed Claude updates and OpenCode releases into it. A link I pasted and a followed research post each carry a memo reaction. A pinned message from the bot, Update Reader, reads: linkedin-drafts state: claude-code=2.1.332 courier=1.0.0; that text is outlined in orange."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/inbox.png' | relative_url }}" width="884" height="502" loading="lazy" alt="A dark chat channel named claude-updates. Two notices say I followed Claude updates and OpenCode releases into it. A link I pasted and a followed research post each carry a memo reaction. A pinned message from my bot reads: linkedin-drafts state: claude-code=2.1.332 courier=1.0.0; that text is outlined in orange."></div>
 <figcaption>The private channel. Redrawn from the channel's real messages, with names and IDs left out. The outlined message is the run's memory (step 6).</figcaption>
 </figure>
 
@@ -55,22 +53,24 @@ In the Discord Developer Portal I created an application, added a bot, turned
 on the **Message Content** intent (without it the bot sees messages but not
 their text), and invited it to my server. Its own role allows only **View
 Channel** and **Read Message History**. Sending and adding reactions come from
-the server's default role. The bot never stays connected: Discord does not
-call anyone when a message arrives, so a scheduled task asks it instead.
+the server's default role. The bot never stays connected;
+the scheduled task asks it.
 
 </details>
 
 <details class="step" id="step-3" markdown="1">
-<summary><span class="n">3</span> Two secrets, neither in the chat</summary>
+<summary><span class="n">3</span> Keep the tokens out of the chat</summary>
 
-The bot token went into the cloud environment's settings as the variable
-`DISCORD_BOT_TOKEN`. The LinkedIn token went in through the secure form that a
-session opens for one host, `api.linkedin.com`, and is saved as a network
-secret. The session never sees it: the proxy adds the header on the way out.
+Neither token was pasted into a chat. The LinkedIn token went in through
+a secure form and is stored as a network secret for `api.linkedin.com`: the
+proxy adds it to each request on the way out, so the session never sees it.
+The bot token sits in the cloud environment's settings, and the task only
+checks that it is there. Environment variables are plain text, though, so a
+network secret suits the bot token better.
 
 <figure class="shot" data-focus='[{"label":"no Authorization header","x":0.04,"y":0.274,"w":0.77,"h":0.055}]'>
-<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/terminal.png' | relative_url }}" width="884" height="324" loading="lazy" alt="A terminal. A curl to the LinkedIn userinfo endpoint without an Authorization header returns HTTP 200. A check prints token set without printing the token, and a call to the Discord API returns the bot's name, Update Reader."></div>
-<figcaption>Both checks, run in a cloud session today. Neither prints a token.</figcaption>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/terminal.png' | relative_url }}" width="884" height="324" loading="lazy" alt="A terminal. A curl to the LinkedIn userinfo endpoint without an Authorization header returns HTTP 200. A check prints token set without printing the token, and a call to the Discord API returns HTTP 200."></div>
+<figcaption>Both checks, run in a cloud session today and redrawn with the variable name shortened. Neither prints a token.</figcaption>
 </figure>
 
 </details>
@@ -78,8 +78,8 @@ secret. The session never sees it: the proxy adds the header on the way out.
 <details class="step" id="step-4" markdown="1">
 <summary><span class="n">4</span> A LinkedIn app and a 60-day token</summary>
 
-LinkedIn wants every developer app linked to a company Page, even when it
-only posts to a personal profile, so the app needed a Page first. Then:
+LinkedIn wants every developer app linked to a company Page, even one that
+posts to a personal profile. Then:
 
 1. In the app, under **Products**, request **Share on LinkedIn** and **Sign In
    with LinkedIn using OpenID Connect**.
@@ -101,7 +101,7 @@ feed, read the channel, draft, record what was drafted, notify me, ask, and
 post only on a clear yes.
 
 <figure class="shot" data-focus='[{"label":"the schedule","x":0.04,"y":0.209,"w":0.921,"h":0.125}]'>
-<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/task.png' | relative_url }}" width="884" height="487" loading="lazy" alt="A card for the scheduled task LinkedIn drafts. Schedule: CRON_TZ=Europe/Berlin 36 6,12,18 * * *, every day at 06:36, 12:36 and 18:36. Each run starts a fresh cloud session, sends a push notification, and has the DISCORD_BOT_TOKEN variable and the api.linkedin.com network secret. The first lines of the prompt say to post only after explicit approval."></div>
+<div class="shot-view"><img src="{{ '/assets/images/claude-code-task-drafts-my-linkedin-posts/task.png' | relative_url }}" width="884" height="487" loading="lazy" alt="A card for the scheduled task LinkedIn drafts. Schedule: CRON_TZ=Europe/Berlin 36 6,12,18 * * *, every day at 06:36, 12:36 and 18:36. Each run starts a fresh cloud session and sends a push notification. The first lines of the prompt say to post only after explicit approval."></div>
 <figcaption>The task's settings and the start of its prompt.</figcaption>
 </figure>
 
@@ -110,8 +110,8 @@ post only on a clear yes.
 <details class="step" id="step-6" markdown="1">
 <summary><span class="n">6</span> A memory without a database</summary>
 
-The first version had no memory. A missed run lost its items, and a manual
-run drafted the same article twice. Discord now holds the state. Every message
+The first version had no memory, so a manual run drafted the same article
+twice. Discord now holds the state. Every message
 that has been drafted gets a 📝 reaction from the bot, so the next run skips
 it. The last versions drafted live in one message the bot wrote and I pinned:
 `linkedin-drafts state: claude-code=2.1.332 courier=1.0.0`. A run reads it
@@ -155,18 +155,32 @@ Try it:
 
 A second, one-time scheduled task fires a few days before the 60 days are up.
 It lists the steps to make a new token, opens the secure form again, and checks
-the new one with the same read-only call. It does not post anything.
+the new one with the same read-only call.
 
 </details>
 
 </div>
 
-## What it taught me
+## Doing the same
 
-Most of the work went into what the session must not do: print a token, post
-without a yes, or draft the same thing twice. Reactions and one pinned message
-turned out to be enough memory for a job like this. The screenshots are redrawn
-from one run's real output and the channel's real messages, not captured from
-the apps, and they show drafts, not a published post.
+None of this is code I wrote. Every piece is a setting, a token, or a
+paragraph in the task's prompt, and an agent did the wiring: it worked out the
+API calls, checked each one, and wrote the steps down. Small automations like
+this one have become a matter of describing the job and the rules it must
+keep.
+
+If you want the same, you do not need my prompt. Give your coding agent this
+page and ask it to follow the steps:
+
+```text
+Read https://ivopogace.github.io/blog/posts/claude-code-task-drafts-my-linkedin-posts/
+and set up the same LinkedIn drafts automation for me, one step at a time.
+Tell me which steps I have to do myself, never ask me to paste a token into
+the chat, and never post to LinkedIn without my explicit approval.
+```
+
+The Discord bot and the LinkedIn app still need your own accounts. The screenshots here are redrawn from one run's
+real output and the channel's real messages, and they show drafts, not a
+published post.
 
 <script src="{{ '/assets/js/guide.js' | relative_url }}" defer></script>
