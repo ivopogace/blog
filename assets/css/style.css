@@ -652,3 +652,116 @@ h2:hover > .anchor, h3:hover > .anchor, .anchor:focus-visible { opacity: 1; }
   :root { --bg: #fff; --fg: #000; --muted: #444; --soft: #222; --code-bg: #f4f4f4; --rule: #ccc; --line: #999; }
   body { display: block; min-height: 0; }
 }
+
+/* Step-by-step guides: a flow of boxes, steps that open and close, screenshots
+   that zoom into what matters. assets/js/guide.js adds the ticks, the focus
+   buttons and the escaper; without it the steps still open and close. */
+.prose .flow { list-style: none; padding: 0; display: grid; gap: 0.5rem; counter-reset: flow; }
+.prose .flow li {
+  position: relative;
+  margin: 0;
+  padding: 0.6rem 0.8rem 0.6rem 2.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--code-bg);
+  counter-increment: flow;
+  line-height: 1.35;
+}
+.prose .flow li::before {
+  content: counter(flow);
+  position: absolute;
+  left: 0.8rem;
+  top: 0.65rem;
+  font: 700 0.8rem/1.4 var(--mono);
+  color: var(--accent);
+}
+.prose .flow li + li::after {
+  content: "↓";
+  position: absolute;
+  left: 0.85rem;
+  top: -0.95rem;
+  font: 0.75rem/1 var(--mono);
+  color: var(--line);
+}
+.prose .flow b { display: block; font-family: var(--display); }
+.prose .flow span { font-size: 0.9rem; color: var(--muted); }
+
+.guide-progress { margin: 0 0 1rem; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.guide-progress p { margin: 0.4rem 0 0; }
+.guide-progress-bar { height: 0.35rem; border-radius: 1rem; background: var(--rule); overflow: hidden; }
+.guide-progress-bar span { display: block; height: 100%; width: 0; background: var(--ok); transition: width 0.3s; }
+.guide-progress-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.guide button, .shot-dialog button {
+  font: 600 0.75rem/1 var(--mono);
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.65rem;
+  cursor: pointer;
+}
+.guide button:hover { border-color: var(--muted); }
+.guide button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+
+.prose details.step { border: 1px solid var(--rule); border-radius: 4px; margin: 0 0 0.6rem; padding: 0 1rem; }
+.prose details.step[open] { padding-bottom: 0.5rem; }
+.prose details.step > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+.prose details.step > summary::-webkit-details-marker { display: none; }
+.prose details.step > summary::after { content: "+"; margin-left: auto; font: 400 1.1rem/1 var(--mono); color: var(--muted); }
+.prose details.step[open] > summary::after { content: "−"; }
+.prose details.step .n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font: 700 0.8rem/1 var(--mono);
+}
+.prose details.step.is-done .n { background: var(--ok); border-color: var(--ok); color: var(--bg); }
+.prose details.step.is-done .n { font-size: 0; }
+.prose details.step.is-done .n::before { content: "✓"; font-size: 0.85rem; }
+.step-done { display: block; margin: 0.5rem 0 0.4rem; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); cursor: pointer; }
+.step-done input { accent-color: var(--ok); width: 1rem; height: 1rem; vertical-align: -0.15rem; }
+
+.prose figure.shot { margin-left: 0; margin-right: 0; }
+.shot-view { position: relative; overflow: hidden; border-radius: 6px; line-height: 0; transition: height 0.35s ease; }
+.shot-spot { position: absolute; display: none; border-radius: 8px; box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.45); pointer-events: none; }
+.is-focused .shot-spot { display: block; }
+.shot-view img { display: block; width: 100%; height: auto; cursor: zoom-in; transform-origin: 0 0; transition: transform 0.35s ease; }
+@media (prefers-reduced-motion: reduce) { .shot-view, .shot-view img, .guide-progress-bar span { transition: none; } }
+.shot-narrow { max-width: 22rem; }
+.shot-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0; }
+.prose figure.shot figcaption { margin-top: 0.5rem; font-size: 0.85rem; color: var(--muted); line-height: 1.45; }
+.shot-dialog { max-width: 96vw; max-height: 94vh; padding: 0; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); }
+.shot-dialog::backdrop { background: rgba(0, 0, 0, 0.7); }
+.shot-dialog form { position: sticky; top: 0; text-align: right; padding: 0.4rem; background: var(--bg); }
+.shot-dialog img { display: block; max-width: none; width: min(1768px, 94vw); height: auto; }
+
+.escaper { border: 1px solid var(--rule); border-radius: 4px; padding: 0.8rem 1rem; background: var(--code-bg); }
+.escaper label, .escaper-out { display: block; font: 600 0.75rem/1.4 var(--mono); color: var(--muted); margin: 0.6rem 0 0.3rem; }
+.escaper label:first-child { margin-top: 0; }
+.escaper textarea, .escaper input {
+  width: 100%;
+  font: 0.85rem/1.5 var(--mono);
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.5rem 0.6rem;
+  resize: vertical;
+}
+.escaper output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; font: 0.82rem/1.55 var(--mono); color: var(--fg); background: var(--bg); border: 1px dashed var(--line); border-radius: 4px; padding: 0.6rem; }
