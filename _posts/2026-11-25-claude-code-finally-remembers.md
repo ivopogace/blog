@@ -7,17 +7,18 @@ summary: >-
 date: 2026-11-25 23:00:00 +0000
 ---
 
-Picture a colleague who is brilliant and fast, and who forgets everything you
-told them the moment they go home. That is what working with AI coding
-sessions has been like. Every Claude Code cloud session starts in a fresh
-container with a clean copy of my code. It reads the repository, and that is
+Imagine a sharp colleague who walks in every morning having forgotten
+everything you talked about yesterday. You explain the project again, the same
+preferences, the same "not like that, like this". That is what working with AI
+coding sessions has been like. Every Claude Code **cloud session** starts in a
+fresh container with a clean copy of my code. It reads the repository, and that is
 all it knows.
 
 ## Starting from zero, every time
 
 So I wrote things down. For this blog there is a whole file of rules that a
 session reads before it writes a post. That covers the big rules. The small
-things did not carry over: a "not like that, like this", the reason behind a
+things did not carry over: a quick correction, the reason behind a
 choice, how I like something done. Whatever I said in one session was gone in
 the next.
 
@@ -34,8 +35,7 @@ stays told.
 
 ## Why it is a big deal
 
-For me, the model was never the bottleneck. Context was. Memory turns a string
-of one-off sessions into something closer to an ongoing collaboration. The
+Memory turns a string of one-off sessions into something closer to an ongoing collaboration. The
 rules file keeps the big rules, and the small things can now simply build up.
 
 It also comes with guardrails. What gets saved goes through an automated
@@ -44,5 +44,5 @@ safety check, and I can ask a session to forget something.
 I did not switch it on myself. As far as I can tell it arrived with a recent
 update, switched on by default. So if you use Claude Code's cloud sessions,
 your sessions may already be remembering, and it is worth a look under
-Settings, Your Claude, to see what is on. For me it is the first update in a
+Settings → Your Claude, to see what is on. For me it is the first update in a
 while that changes how a session starts, not just what it can do.
