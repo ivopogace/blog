@@ -35,8 +35,7 @@ stays told.
 
 ## Why it is a big deal
 
-For me, the model was never the bottleneck. Context was. Memory turns a string
-of one-off sessions into something closer to an ongoing collaboration. The
+Memory turns a string of one-off sessions into something closer to an ongoing collaboration. The
 rules file keeps the big rules, and the small things can now simply build up.
 
 It also comes with guardrails. What gets saved goes through an automated
@@ -45,5 +44,5 @@ safety check, and I can ask a session to forget something.
 I did not switch it on myself. As far as I can tell it arrived with a recent
 update, switched on by default. So if you use Claude Code's cloud sessions,
 your sessions may already be remembering, and it is worth a look under
-Settings, Your Claude, to see what is on. For me it is the first update in a
+Settings → Your Claude, to see what is on. For me it is the first update in a
 while that changes how a session starts, not just what it can do.
