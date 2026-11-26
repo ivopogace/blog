@@ -5,8 +5,7 @@ summary: >-
   day, drafts LinkedIn posts about what arrived, and publishes one only after I
   reply "post 1". Here is how each piece was set up, with the screenshots, and
   with every token kept out of the chat.
-date: 2026-11-25 22:00:00 +0000
-published: false
+date: 2026-11-26 00:00:00 +0000
 ---
 
 I wanted to turn the announcements I already read into short LinkedIn posts.
